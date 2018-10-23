@@ -20,8 +20,8 @@ HomeStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+          ? `ios-person${focused ? '' : '-outline'}`
+          : 'md-person'
       }
     />
   ),
@@ -36,7 +36,7 @@ AchievementsStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link'}
+      name={Platform.OS === 'ios' ? `ios-trophy${focused ? '' : '-outline'}` : 'md-trophy'}
     />
   ),
 };
@@ -50,7 +50,7 @@ RecordStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
     focused={focused}
-    name={Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link'}
+    name={Platform.OS === 'ios' ? `ios-add-circle${focused ? '' : '-outline'}` : 'md-add-circle'}
     />
   ),
 };
@@ -64,7 +64,7 @@ AnalyticsStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
     focused={focused}
-    name={Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link'}
+    name={Platform.OS === 'ios' ? `ios-stats${focused ? '' : '-outline'}` : 'md-stats'}
     />
   ),
 };
