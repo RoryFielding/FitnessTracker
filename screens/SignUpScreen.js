@@ -1,13 +1,19 @@
-import { ScrollView, StyleSheet, Button, Text, TextInput, View, TouchableOpacity } from 'react-native';
 import React, { Component } from 'react';
-
+import {
+    StyleSheet,
+    Text,
+    View,
+    TouchableOpacity,
+    TextInput
+} from 'react-native';
 
 import Logo from '../components/Logo';
 
-export default class AuthScreen extends React.Component {
-    static navigationOptions = {
-        title: 'Links',
-    };
+export default class SignUpScreen extends Component {
+
+    goBack() {
+        Actions.pop();
+    }
 
     render() {
         return (
@@ -28,12 +34,20 @@ export default class AuthScreen extends React.Component {
                     placeholderTextColor="#ffffff"
                     ref={(input) => this.password = input}
                 />
-                <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Main')}>
-                    <Text style={styles.buttonText}>Log In{this.props.type}</Text>
+                <TextInput style={styles.inputBox}
+                    underlineColorAndroid='rgba(0,0,0,0)'
+                    placeholder="Confirm Password"
+                    secureTextEntry={true}
+                    placeholderTextColor="#ffffff"
+                    ref={(input) => this.password = input}
+                />
+                <TouchableOpacity style={styles.button}>
+                    <Text style={styles.buttonText}>NEXT{this.props.type}</Text>
                 </TouchableOpacity>
                 <View style={styles.signupTextCont}>
-                    <Text style={styles.signupText}>Don't have an account yet?</Text>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('SignUp')}><Text style={styles.signupButton}> Sign Up</Text></TouchableOpacity>
+                    <Text style={styles.signupText}>Already have an account?</Text>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('AuthLoading')}>
+                    <Text style={styles.signupButton}> Log In</Text></TouchableOpacity>
                 </View>
             </View>
         )
@@ -64,7 +78,7 @@ const styles = StyleSheet.create({
     },
     inputBox: {
         width:300,
-        backgroundColor:'#0C2331',
+        backgroundColor: '#0C2331',
         borderRadius: 25,
         paddingHorizontal:16,
         fontSize:16,
