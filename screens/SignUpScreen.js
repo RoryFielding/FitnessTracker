@@ -5,7 +5,8 @@ import {
     ScrollView,
     View,
     TouchableOpacity,
-    TextInput
+    TextInput,
+    Image
 } from 'react-native';
 import { CheckBox } from 'react-native-elements'
 import Logo from '../components/Logo';
@@ -42,8 +43,8 @@ export default class SignUpScreen extends Component {
         return (
 
             <ScrollView contentContainerStyle={styles.container}>
-                {this.state.fchecked}
-                <Logo />
+                <Image  style={{width:260, height: 160}}
+          			source={require('../assets/images/icon3.png')}/>
                 <TextInput style={styles.inputBox}
                     underlineColorAndroid='rgba(0,0,0,0)'
                     placeholder="Email"
