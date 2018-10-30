@@ -1,27 +1,44 @@
 import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
-import { ExpoLinksView } from '@expo/samples';
+import { View, Text, StyleSheet } from 'react-native';
 
-export default class LinksScreen extends React.Component {
+export default class AchievementsScreen extends React.Component {
   static navigationOptions = {
-    title: 'Links',
+    header: null,
   };
 
   render() {
     return (
-      <ScrollView style={styles.container}>
-        {/* Go ahead and delete ExpoLinksView and replace it with your
-           * content, we just wanted to provide you with some helpful links */}
-        <ExpoLinksView />
-      </ScrollView>
+      <View style={styles.container}>
+        <View style={styles.signupTextCont}>
+          <Text style={styles.signupText}>Achievements Screen</Text>
+        </View>
+      </View>
+
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#1C272A',
     flex: 1,
-    paddingTop: 15,
-    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  signupButton: {
+    color: '#4CA4B0',
+    fontSize: 16,
+    fontWeight: '500'
+  },
+  signupTextCont: {
+    flexGrow: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 16,
+    flexDirection: 'row'
+  },
+  signupText: {
+    color: 'rgba(255,255,255,0.6)',
+    fontSize: 16
   },
 });

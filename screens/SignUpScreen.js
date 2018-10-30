@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     Text,
+    ScrollView,
     View,
     TouchableOpacity,
     TextInput
@@ -11,13 +12,13 @@ import Logo from '../components/Logo';
 
 export default class SignUpScreen extends Component {
 
-    goBack() {
-        Actions.pop();
-    }
+    
 
     render() {
         return (
-            <View style={styles.container}>
+            
+            <ScrollView style={styles.container} contentContainerStyle={styles.container}>
+            
                 <Logo />
                 <TextInput style={styles.inputBox}
                     underlineColorAndroid='rgba(0,0,0,0)'
@@ -32,14 +33,26 @@ export default class SignUpScreen extends Component {
                     placeholder="Password"
                     secureTextEntry={true}
                     placeholderTextColor="#ffffff"
-                    ref={(input) => this.password = input}
+                    ref={(input) => this.next = input}
                 />
                 <TextInput style={styles.inputBox}
                     underlineColorAndroid='rgba(0,0,0,0)'
                     placeholder="Confirm Password"
                     secureTextEntry={true}
                     placeholderTextColor="#ffffff"
-                    ref={(input) => this.password = input}
+                    ref={(input) => this.next = input}
+                />
+                <TextInput style={styles.inputBox}
+                    underlineColorAndroid='rgba(0,0,0,0)'
+                    placeholder="First Name"
+                    placeholderTextColor="#ffffff"
+                    ref={(input) => this.next = input}
+                />
+                <TextInput style={styles.inputBox}
+                    underlineColorAndroid='rgba(0,0,0,0)'
+                    placeholder="Last Name"
+                    placeholderTextColor="#ffffff"
+                    ref={(input) => this.next = input}
                 />
                 <TouchableOpacity style={styles.button}>
                     <Text style={styles.buttonText}>NEXT{this.props.type}</Text>
@@ -49,7 +62,7 @@ export default class SignUpScreen extends Component {
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('AuthLoading')}>
                     <Text style={styles.signupButton}> Log In</Text></TouchableOpacity>
                 </View>
-            </View>
+            </ScrollView>
         )
     }
 }
@@ -62,8 +75,6 @@ const styles = StyleSheet.create({
     },
     signupTextCont: {
         flexGrow: 1,
-        alignItems: 'flex-end',
-        justifyContent: 'center',
         paddingVertical: 16,
         flexDirection: 'row'
     },
