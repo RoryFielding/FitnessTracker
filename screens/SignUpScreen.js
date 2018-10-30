@@ -8,8 +8,10 @@ import {
     TextInput,
     Image,
 } from 'react-native';
-import { CheckBox } from 'react-native-elements'
-import DatePicker from 'react-native-datepicker'
+import { CheckBox, Button } from 'react-native-elements';
+import DatePicker from 'react-native-datepicker';
+import fire from '../config/fire';
+
 
 export default class SignUpScreen extends Component {
 
@@ -20,13 +22,25 @@ export default class SignUpScreen extends Component {
             fchecked: false,
             tcchecked: false,
             date: null,
-            username: null,
-            password: null,
-            password2: null,
+            username: '',
+            password: '',
+            password2: '',
             firstName: null,
             lastName: null,
+            error: null,
+            loading: false,
         };
+        // this.login = this.login.bind(this);
+        // this.handleCChange.bind(this)
     }
+
+    
+
+      handleChange(e) {
+          this.setState({
+              [e.target.name]: e.target.value
+          });
+      }
 
     checkMaleBox() {
         fchecked = this.state.fchecked;
@@ -56,12 +70,12 @@ export default class SignUpScreen extends Component {
 
     setPassword(password) {
         this.setState({ password: password })
-        console.log(password)
+        console.log(this.state.password)
     }
 
     setPassword2(password) {
         this.setState({ password2: password })
-        console.log(password)
+        console.log(this.state.password)
     }
 
 
@@ -170,8 +184,10 @@ export default class SignUpScreen extends Component {
                         onPress={() => this.checkTcBox()}
                     />
                 </View>
-                <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText}>NEXT{this.props.type}</Text>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => {this.handleSignUp()}}>
+                    <Text style={styles.buttonText}>CREATE ACCOUNT{this.props.type}</Text>
                 </TouchableOpacity>
                 <View style={styles.signupTextCont}>
                     <Text style={styles.signupText}>Already have an account?</Text>
@@ -181,6 +197,14 @@ export default class SignUpScreen extends Component {
             </ScrollView>
         )
     }
+
+createAccount() {
+        fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
+        }).then((u)=> {console.log(u)}).createAccount
+        .catch((error) => {
+          console.log(error);
+        });
+      }
 }
 
 

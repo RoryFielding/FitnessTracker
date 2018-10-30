@@ -2,11 +2,39 @@ import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
+import fire from './config/fire';
+import HomeScreen from './screens/HomeScreen';
+import MainTabNavigator from './navigation/MainTabNavigator';
 
 export default class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {},
+    }
+  }
   state = {
     isLoadingComplete: false,
   };
+
+  componentDidMount() {
+    this.authListener();
+  }
+
+  authListener() {
+    fire.auth().onAuthStateChanged((user) => {
+      // console.log(user);
+      if (user) {
+        this.setState({ user });
+        // localStorage.setItem('user', user.uid);
+
+      } else {
+        this.setState({ user: null });
+        //  localStorage.removeItem(user);
+      }
+    })
+  }
 
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
@@ -19,10 +47,15 @@ export default class App extends React.Component {
       );
     } else {
       return (
+
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <AppNavigator />
+          {this.state.user ? (<MainTabNavigator />) : (<AppNavigator />)}
         </View>
+        // <View style={styles.container}>
+        //   {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+        //   <AppNavigator />
+        // </View>
       );
     }
   }

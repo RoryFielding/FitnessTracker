@@ -1,13 +1,39 @@
 import { ScrollView, StyleSheet, Button, Text, TextInput, View, TouchableOpacity } from 'react-native';
 import React, { Component } from 'react';
-
-
+import fire from '../config/fire';
 import Logo from '../components/Logo';
 
 export default class AuthScreen extends React.Component {
     static navigationOptions = {
-        title: 'Links',
+        header: null,
     };
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            date: null,
+            username: '',
+            password: '',
+            error: null,
+            loading: false,
+        };
+        this.login = this.login.bind(this);
+        this.handleChange.bind(this)
+    }
+
+    login(e) {
+        fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
+    
+        }).catch((error) => {
+          console.log(error);
+        });
+      }
+
+      handleChange(e) {
+          this.setState({
+              [e.target.name]: e.target.value
+          });
+      }
 
     render() {
         return (
@@ -28,7 +54,9 @@ export default class AuthScreen extends React.Component {
                     placeholderTextColor="#ffffff"
                     ref={(input) => this.password = input}
                 />
-                <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Main')}>
+                <TouchableOpacity style={styles.button} 
+                //onPress={() => this.props.navigation.navigate('Main')}>
+                onPress={() => {this.login()}}>
                     <Text style={styles.buttonText}>Log In{this.props.type}</Text>
                 </TouchableOpacity>
                 <View style={styles.signupTextCont}>
