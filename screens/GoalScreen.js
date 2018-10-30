@@ -1,41 +1,51 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import fire from '../config/fire';
 
 export default class AchievementsScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
 
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
-      user: {},
-    }
+    username: this.props.navigation.state.params.user.username,
+    password: this.props.navigation.state.params.user.password
+  }
   }
 
   render() {
     return (
       <View style={styles.container}>
-          <Text style={styles.signupText}>Weight Screen</Text>
-          <View>
+        <Text style={styles.signupText}>Goal Screen</Text>
+        <View>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => { this.props.navigation.navigate('Height'), { user } }}>
+            onPress={() => {this.createAccount()}}>
             <Text style={styles.buttonText}>NEXT{this.props.type}</Text>
           </TouchableOpacity>
-          </View>
+        </View>
       </View>
 
     );
+  }
+
+
+  createAccount(e) {
+    fire.auth().createUserWithEmailAndPassword(this.state.username, this.state.password).then((u) => {
+    }).catch((error) => {
+      alert(error);
+    });
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#1C272A',
-    flex: 1,
+    flexGrow: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   signupButton: {
     color: '#4CA4B0',

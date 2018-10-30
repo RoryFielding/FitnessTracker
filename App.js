@@ -52,10 +52,6 @@ export default class App extends React.Component {
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
           {this.state.user ? (<MainTabNavigator />) : (<AppNavigator />)}
         </View>
-        // <View style={styles.container}>
-        //   {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        //   <AppNavigator />
-        // </View>
       );
     }
   }

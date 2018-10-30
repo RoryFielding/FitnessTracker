@@ -1,17 +1,29 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 export default class AchievementsScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
 
+  constructor(props){
+    super(props)
+    this.state = {
+      user: {},
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.signupTextCont}>
-          <Text style={styles.signupText}>Achievements Screen</Text>
-        </View>
+          <Text style={styles.signupText}>Consent Screen</Text>
+          <View>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => { this.props.navigation.navigate('Weight'), { user }}}>
+            <Text style={styles.buttonText}>NEXT{this.props.type}</Text>
+          </TouchableOpacity>
+          </View>
       </View>
 
     );
@@ -21,9 +33,9 @@ export default class AchievementsScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#1C272A',
-    flex: 1,
+    flexGrow: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   signupButton: {
     color: '#4CA4B0',
@@ -40,5 +52,18 @@ const styles = StyleSheet.create({
   signupText: {
     color: 'rgba(255,255,255,0.6)',
     fontSize: 16
+  },
+  button: {
+    width: 300,
+    backgroundColor: '#4CA4B0',
+    borderRadius: 25,
+    marginVertical: 10,
+    paddingVertical: 16
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#ffffff',
+    textAlign: 'center'
   },
 });

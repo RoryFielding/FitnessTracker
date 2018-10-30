@@ -8,9 +8,8 @@ import {
     TextInput,
     Image,
 } from 'react-native';
-import { CheckBox, Button } from 'react-native-elements';
+import { CheckBox } from 'react-native-elements';
 import DatePicker from 'react-native-datepicker';
-import fire from '../config/fire';
 
 
 export default class SignUpScreen extends Component {
@@ -22,21 +21,23 @@ export default class SignUpScreen extends Component {
             fchecked: false,
             tcchecked: false,
             date: null,
-            username: "",
-            password: "",
-            password2: '',
+            password2: "",
             firstName: null,
             lastName: null,
             error: null,
             loading: false,
+            user: {
+                username: "",
+                password: "",
+            },
         };
     }
 
-      handleChange(e) {
-          this.setState({
-              [e.target.name]: e.target.value
-          });
-      }
+    handleChange(e) {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    }
 
     checkMaleBox() {
         fchecked = this.state.fchecked;
@@ -61,12 +62,10 @@ export default class SignUpScreen extends Component {
 
     setUsername(username) {
         this.setState({ username })
-        console.log(this.state.username)
     }
 
     setPassword(password) {
         this.setState({ password: password })
-        console.log(this.state.password)
     }
 
     setPassword2(password) {
@@ -168,10 +167,10 @@ export default class SignUpScreen extends Component {
                     }}
                     onDateChange={(date) => { this.setState({ date: date }) }}
                 />
-                <View style={styles.TcText}>
-                    <Text style={styles.TcTextCont}>I have read the</Text>
+                <View style={styles.tcView}>
+                    <Text style={styles.TcTextCont}>I have read and accept the</Text>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('AuthLoading')}>
-                        <Text style={styles.signupButton}> terms and conditions</Text></TouchableOpacity>
+                        <Text style={styles.tcButton}> terms and conditions</Text></TouchableOpacity>
                     <CheckBox
                         checked={this.state.tcchecked}
                         containerStyle={styles.tccheckBox}
@@ -180,7 +179,8 @@ export default class SignUpScreen extends Component {
                 </View>
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => {this.createAccount()}}>
+                    // onPress={() => { this.createAccount() }}>
+                    onPress={() => { this.props.navigation.navigate('Consent') }}>
                     <Text style={styles.buttonText}>CREATE ACCOUNT{this.props.type}</Text>
                 </TouchableOpacity>
                 <View style={styles.signupTextCont}>
@@ -193,11 +193,12 @@ export default class SignUpScreen extends Component {
     }
 
     createAccount(e) {
-        fire.auth().createUserWithEmailAndPassword(this.state.username, this.state.password).then((u) => {
-        }).catch((error) => {
-            alert(error);
-        });
-      }
+        // fire.auth().createUserWithEmailAndPassword(this.state.username, this.state.password).then((u) => {
+        // }).catch((error) => {
+        //     alert(error);
+        // });
+        this.props.navigation.navigate('Consent');
+    }
 }
 
 
@@ -221,7 +222,6 @@ const styles = StyleSheet.create({
         height: 45,
         borderColor: '#1C272A',
         flexDirection: 'row',
-        paddingVertical: -160
     },
     signupTextCont: {
         flexGrow: 1,
@@ -230,12 +230,12 @@ const styles = StyleSheet.create({
     },
     TcText: {
         flexWrap: 'wrap',
-        paddingVertical: 16,
         flexDirection: 'row'
     },
     TcTextCont: {
         color: 'rgba(255,255,255,0.6)',
-        fontSize: 16
+        fontSize: 16,
+        paddingVertical: 16
     },
     signupText: {
         color: 'rgba(255,255,255,0.6)',
@@ -245,6 +245,10 @@ const styles = StyleSheet.create({
         color: '#4CA4B0',
         fontSize: 16,
         fontWeight: '500'
+    },
+    tcButton: {
+        color: '#4CA4B0',
+        fontSize: 16,
     },
     inputBox: {
         width: 300,
@@ -258,6 +262,7 @@ const styles = StyleSheet.create({
     },
     datePicker: {
         width: 200,
+        paddingVertical: 16
     },
     button: {
         width: 300,
@@ -271,5 +276,11 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         color: '#ffffff',
         textAlign: 'center'
+    },
+    tcView: {
+        backgroundColor: '#1C272A',
+        flexGrow: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
     }
 });

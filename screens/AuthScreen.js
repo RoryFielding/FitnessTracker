@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Button, Text, TextInput, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Button, Text, TextInput, View, TouchableOpacity } from 'react-native';
 import React, { Component } from 'react';
 import fire from '../config/fire';
 import Logo from '../components/Logo';
@@ -23,7 +23,6 @@ export default class AuthScreen extends React.Component {
 
     login(e) {
         fire.auth().signInWithEmailAndPassword(this.state.username, this.state.password).then((u) => {
-    
         }).catch((error) => {
           console.log(error);
         });
@@ -61,7 +60,8 @@ export default class AuthScreen extends React.Component {
                 </TouchableOpacity>
                 <View style={styles.signupTextCont}>
                     <Text style={styles.signupText}>Don't have an account yet?</Text>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('SignUp')}><Text style={styles.signupButton}> Sign Up</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('SignUp')}
+                    ><Text style={styles.signupButton}> Sign Up</Text></TouchableOpacity>
                 </View>
             </View>
         )

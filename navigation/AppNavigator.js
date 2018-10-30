@@ -5,6 +5,7 @@ import SignUpScreen from '../screens/SignUpScreen';
 import ConsentScreen from '../screens/ConsentScreen';
 import WeightScreen from '../screens/WeightScreen';
 import HeightScreen from '../screens/HeightScreen';
+import GoalScreen from '../screens/GoalScreen';
 
 export default createSwitchNavigator(
   {
@@ -15,10 +16,15 @@ export default createSwitchNavigator(
     Consent: ConsentScreen,
     Weight: WeightScreen,
     Height: HeightScreen,
+    Goal: GoalScreen,
     Main: MainTabNavigator,
   },
   {
     initialRouteName: 'AuthLoading',
+    ConsentRoute: 'Consent',
+    WeightRoute: 'Weight',
+    HeightRoute: 'Height',
+    GoalRoute: 'Goal', 
     secondRoute: 'Main'
   }
 );
