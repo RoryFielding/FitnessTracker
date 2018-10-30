@@ -1,17 +1,29 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-
+import firebase from 'firebase';
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
+
+  constructor(props) {
+    super(props);
+  }
+
+  logOut() {
+    firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+    }, function(error) {
+      // An error happened.
+    });
+  }
 
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.signupTextCont}>
           <Text style={styles.signupText}>Had enough fun?</Text>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('AuthLoading')}>
+          <TouchableOpacity onPress={() => this.logOut()}>
             <Text style={styles.signupButton}> Log Out</Text>
           </TouchableOpacity>
         </View>

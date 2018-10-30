@@ -12,8 +12,8 @@ export default class AuthScreen extends React.Component {
         super(props);
         this.state = {
             date: null,
-            username: '',
-            password: '',
+            username: "Rory@test.com",
+            password: "test123",
             error: null,
             loading: false,
         };
@@ -22,7 +22,7 @@ export default class AuthScreen extends React.Component {
     }
 
     login(e) {
-        fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
+        fire.auth().signInWithEmailAndPassword(this.state.username, this.state.password).then((u) => {
     
         }).catch((error) => {
           console.log(error);
@@ -41,7 +41,7 @@ export default class AuthScreen extends React.Component {
                 <Logo />
                 <TextInput style={styles.inputBox}
                     underlineColorAndroid='rgba(0,0,0,0)'
-                    placeholder="Email"
+                    placeholder={this.state.username}
                     placeholderTextColor="#ffffff"
                     selectionColor="#fff"
                     keyboardType="email-address"
@@ -49,7 +49,7 @@ export default class AuthScreen extends React.Component {
                 />
                 <TextInput style={styles.inputBox}
                     underlineColorAndroid='rgba(0,0,0,0)'
-                    placeholder="Password"
+                    placeholder={this.state.password}
                     secureTextEntry={true}
                     placeholderTextColor="#ffffff"
                     ref={(input) => this.password = input}

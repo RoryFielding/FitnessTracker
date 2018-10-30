@@ -22,19 +22,15 @@ export default class SignUpScreen extends Component {
             fchecked: false,
             tcchecked: false,
             date: null,
-            username: '',
-            password: '',
+            username: "",
+            password: "",
             password2: '',
             firstName: null,
             lastName: null,
             error: null,
             loading: false,
         };
-        // this.login = this.login.bind(this);
-        // this.handleCChange.bind(this)
     }
-
-    
 
       handleChange(e) {
           this.setState({
@@ -77,8 +73,6 @@ export default class SignUpScreen extends Component {
         this.setState({ password2: password })
         console.log(this.state.password)
     }
-
-
 
     render() {
         return (
@@ -186,7 +180,7 @@ export default class SignUpScreen extends Component {
                 </View>
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => {this.handleSignUp()}}>
+                    onPress={() => {this.createAccount()}}>
                     <Text style={styles.buttonText}>CREATE ACCOUNT{this.props.type}</Text>
                 </TouchableOpacity>
                 <View style={styles.signupTextCont}>
@@ -198,11 +192,10 @@ export default class SignUpScreen extends Component {
         )
     }
 
-createAccount() {
-        fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
-        }).then((u)=> {console.log(u)}).createAccount
-        .catch((error) => {
-          console.log(error);
+    createAccount(e) {
+        fire.auth().createUserWithEmailAndPassword(this.state.username, this.state.password).then((u) => {
+        }).catch((error) => {
+            alert(error);
         });
       }
 }
