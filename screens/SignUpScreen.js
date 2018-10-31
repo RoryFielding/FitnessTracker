@@ -26,10 +26,8 @@ export default class SignUpScreen extends Component {
             lastName: null,
             error: null,
             loading: false,
-            user: {
-                username: "",
-                password: "",
-            },
+            username: "",
+            password: "",
         };
     }
 
@@ -45,6 +43,9 @@ export default class SignUpScreen extends Component {
         if (fchecked === true) {
             this.setState({ fchecked: !this.state.fchecked })
         }
+        console.log("hello");
+        console.log(this.state.username);
+        //asd
     }
 
     checkFemaleBox() {
@@ -70,10 +71,12 @@ export default class SignUpScreen extends Component {
 
     setPassword2(password) {
         this.setState({ password2: password })
-        console.log(this.state.password)
     }
 
     render() {
+
+        const state = this.state;
+
         return (
             <ScrollView
                 contentContainerStyle={styles.container}>
@@ -180,7 +183,12 @@ export default class SignUpScreen extends Component {
                 <TouchableOpacity
                     style={styles.button}
                     // onPress={() => { this.createAccount() }}>
-                    onPress={() => { this.props.navigation.navigate('Consent') }}>
+                    onPress={() => { 
+                        this.props.navigation.navigate('Consent' , {
+                        username: this.state.username,
+                        password: this.state.password,
+                    });
+                    }}>
                     <Text style={styles.buttonText}>CREATE ACCOUNT{this.props.type}</Text>
                 </TouchableOpacity>
                 <View style={styles.signupTextCont}>

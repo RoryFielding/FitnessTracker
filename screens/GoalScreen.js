@@ -9,20 +9,22 @@ export default class AchievementsScreen extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-    username: this.props.navigation.state.params.user.username,
-    password: this.props.navigation.state.params.user.password
-  }
   }
 
   render() {
+
+
+    const { navigation } = this.props;
+    const username = navigation.getParam('username', 'NO-ID');
+    const password = navigation.getParam('password', 'NO-ID');
+
     return (
       <View style={styles.container}>
         <Text style={styles.signupText}>Goal Screen</Text>
         <View>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => {this.createAccount()}}>
+            onPress={() => { this.createAccount(username, password) }}>
             <Text style={styles.buttonText}>NEXT{this.props.type}</Text>
           </TouchableOpacity>
         </View>
@@ -31,13 +33,18 @@ export default class AchievementsScreen extends React.Component {
     );
   }
 
-
-  createAccount(e) {
-    fire.auth().createUserWithEmailAndPassword(this.state.username, this.state.password).then((u) => {
+    createAccount(username, password) {
+    fire.auth().createUserWithEmailAndPassword(username, password).then((u) => {
     }).catch((error) => {
       alert(error);
     });
   }
+
+  setAuthVars(){
+
+  }
+
+  
 }
 
 const styles = StyleSheet.create({

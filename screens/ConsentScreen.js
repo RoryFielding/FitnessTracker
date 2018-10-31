@@ -1,34 +1,51 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
 
 export default class AchievementsScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
 
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
-      user: {},
+      username: "",
+      password: ""
     }
   }
 
   render() {
+
+    const { navigation } = this.props;
+    const username = navigation.getParam('username', 'NO-ID');
+    const password = navigation.getParam('password', 'NO-ID');
     return (
       <View style={styles.container}>
-          <Text style={styles.signupText}>Consent Screen</Text>
-          <View>
+        <Text style={styles.signupText}>Consent Screen</Text>
+        <Text>username: {JSON.stringify(username)}</Text>
+        <Text>password: {JSON.stringify(password)}</Text>
+        <View>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => { this.props.navigation.navigate('Weight'), { user }}}>
+            onPress={() => {
+              this.props.navigation.navigate('Weight', {
+                username: username,
+                password: password,
+              })
+            }}>
             <Text style={styles.buttonText}>NEXT{this.props.type}</Text>
           </TouchableOpacity>
-          </View>
+          <Button
+          title="Go back"
+          onPress={() => this.props.navigation.goBack()}
+        />
+        </View>
       </View>
 
     );
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {

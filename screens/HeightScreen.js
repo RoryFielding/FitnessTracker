@@ -8,19 +8,25 @@ export default class AchievementsScreen extends React.Component {
 
   constructor(props){
     super(props)
-    this.state = {
-      user: {},
-    }
   }
 
   render() {
+
+    //declare vars for passing via props
+    const { navigation } = this.props;
+    const username = navigation.getParam('username', 'NO-ID');
+    const password = navigation.getParam('password', 'NO-ID');
+
     return (
       <View style={styles.container}>
           <Text style={styles.signupText}>Height Screen</Text>
           <View>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => { this.props.navigation.navigate('Goal'), { user } }}>
+            onPress={() => { this.props.navigation.navigate('Goal', {
+              username: username,
+              password: password,
+            }) }}>
             <Text style={styles.buttonText}>NEXT{this.props.type}</Text>
           </TouchableOpacity>
           </View>

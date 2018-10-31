@@ -6,24 +6,29 @@ export default class AchievementsScreen extends React.Component {
     header: null,
   };
 
-  constructor(props){
-    super(props)
-    this.state = {
-      user: {},
-    }
+  constructor(props) {
+    super(props);
   }
 
   render() {
+
+    const { navigation } = this.props;
+    const username = navigation.getParam('username', 'NO-ID');
+    const password = navigation.getParam('password', 'NO-ID');
     return (
       <View style={styles.container}>
-          <Text style={styles.signupText}>Weight Screen</Text>
-          <View>
+        <Text style={styles.signupText}>Weight Screen</Text>
+        <View>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => { this.props.navigation.navigate('Height'), { user } }}>
+            onPress={() => { this.props.navigation.navigate('Height', {
+              username: username,
+              password: password,
+            })
+            console.log("weight is" + username) }}>
             <Text style={styles.buttonText}>NEXT{this.props.type}</Text>
           </TouchableOpacity>
-          </View>
+        </View>
       </View>
 
     );
