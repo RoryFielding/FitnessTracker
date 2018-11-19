@@ -62,7 +62,7 @@ checkHealthBox() {
             <CheckBox
               title='Data Transfer Outside Country'
               containerStyle={styles.checkBox}
-              checked={this.state.mchecked}
+              checked={this.state.dtocConsent}
               textStyle={styles.signupText}
               onPress={() => this.checkDtocBox()}
             />
@@ -73,7 +73,7 @@ checkHealthBox() {
             <CheckBox
               title='Location Data Access'
               containerStyle={styles.checkBox}
-              checked={this.state.mchecked}
+              checked={this.state.locAccess}
               textStyle={styles.signupText}
               onPress={() => this.checkLocBox()}
             />
@@ -84,7 +84,7 @@ checkHealthBox() {
             <CheckBox
               title='Health Data Access'
               containerStyle={styles.checkBox}
-              checked={this.state.mchecked}
+              checked={this.state.healthAccess}
               textStyle={styles.signupText}
               onPress={() => this.checkHealthBox()}
             />
