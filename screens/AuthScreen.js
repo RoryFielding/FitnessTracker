@@ -56,7 +56,7 @@ export default class AuthScreen extends React.Component {
                 <TouchableOpacity style={styles.button} 
                 //onPress={() => this.props.navigation.navigate('Main')}>
                 onPress={() => {this.login()}}>
-                    <Text style={styles.buttonText}>Log In{this.props.type}</Text>
+                    <Text style={styles.buttonText}>LOG IN{this.props.type}</Text>
                 </TouchableOpacity>
                 <View style={styles.signupTextCont}>
                     <Text style={styles.signupText}>Don't have an account yet?</Text>

@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import fire from '../config/fire';
 
-export default class AchievementsScreen extends React.Component {
+export default class GoalScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
@@ -20,12 +20,16 @@ export default class AchievementsScreen extends React.Component {
 
     return (
       <View style={styles.container}>
+       <Button style={styles.button}
+       title='back'
+          onPress={() => this.props.navigation.navigate('Height')}
+        />
         <Text style={styles.signupText}>Goal Screen</Text>
         <View>
           <TouchableOpacity
             style={styles.button}
             onPress={() => { this.createAccount(username, password) }}>
-            <Text style={styles.buttonText}>NEXT{this.props.type}</Text>
+            <Text style={styles.buttonText}>COMPLETE SIGN UP{this.props.type}</Text>
           </TouchableOpacity>
         </View>
       </View>

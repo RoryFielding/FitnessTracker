@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
 
-export default class AchievementsScreen extends React.Component {
+export default class WeightScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
@@ -16,31 +16,48 @@ export default class AchievementsScreen extends React.Component {
     const username = navigation.getParam('username', 'NO-ID');
     const password = navigation.getParam('password', 'NO-ID');
     return (
+      <View style={styles.container2}>
+      <TouchableOpacity style={styles.backButton}
+          onPress={() => this.props.navigation.navigate('Consent')}>
+          <View>
+          <Text style={styles.buttonText}>BACK{this.props.type}</Text>
+          </View>
+        </TouchableOpacity>
       <View style={styles.container}>
+        <View style={styles.container}>
         <Text style={styles.signupText}>Weight Screen</Text>
-        <View>
+        <Text>username: {JSON.stringify(username)}</Text>
+        <Text>password: {JSON.stringify(password)}</Text>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => { this.props.navigation.navigate('Height', {
-              username: username,
-              password: password,
-            })
-            console.log("weight is" + username) }}>
+            onPress={() => {
+              this.props.navigation.navigate('Height', {
+                username: username,
+                password: password,
+              })
+            }}>
             <Text style={styles.buttonText}>NEXT{this.props.type}</Text>
           </TouchableOpacity>
         </View>
       </View>
-
+      </View>
+     
     );
   }
 }
 
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#1C272A',
-    flex: 1,
+    flexGrow: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+  },
+  container2: {
+    backgroundColor: '#1C272A',
+    flexGrow: 1,
+    flexDirection: 'row'
   },
   signupButton: {
     color: '#4CA4B0',
@@ -63,6 +80,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#4CA4B0',
     borderRadius: 25,
     marginVertical: 10,
+    paddingHorizontal: 30,
     paddingVertical: 16
   },
   buttonText: {
@@ -71,4 +89,13 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     textAlign: 'center'
   },
+  backButton: {
+    backgroundColor: '#4CA4B0',
+    width: 30,
+    height: 25,
+    borderRadius: 25,
+    marginVertical: 25,
+    paddingVertical: 16,
+    flexDirection: 'row'
+  }
 });

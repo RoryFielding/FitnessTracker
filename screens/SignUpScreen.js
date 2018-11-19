@@ -43,9 +43,6 @@ export default class SignUpScreen extends Component {
         if (fchecked === true) {
             this.setState({ fchecked: !this.state.fchecked })
         }
-        console.log("hello");
-        console.log(this.state.username);
-        //asd
     }
 
     checkFemaleBox() {
