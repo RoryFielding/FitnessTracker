@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Button, TextInput } from 'react-native';
 
 export default class WeightScreen extends React.Component {
   static navigationOptions = {
@@ -8,7 +8,10 @@ export default class WeightScreen extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      weight: ""
   }
+}
 
   render() {
 
@@ -16,18 +19,29 @@ export default class WeightScreen extends React.Component {
     const username = navigation.getParam('username', 'NO-ID');
     const password = navigation.getParam('password', 'NO-ID');
     return (
-      <View style={styles.container2}>
-      <TouchableOpacity style={styles.backButton}
-          onPress={() => this.props.navigation.navigate('Consent')}>
-          <View>
-          <Text style={styles.buttonText}>BACK{this.props.type}</Text>
-          </View>
-        </TouchableOpacity>
+
       <View style={styles.container}>
-        <View style={styles.container}>
-        <Text style={styles.signupText}>Weight Screen</Text>
-        <Text>username: {JSON.stringify(username)}</Text>
-        <Text>password: {JSON.stringify(password)}</Text>
+
+        <Text style={styles.signupText3}>Your Weight</Text>
+
+        <Text style={styles.signupText2}>Please enter your weight in KG</Text>
+
+        <TextInput style={styles.inputBox}
+                    ref={(input) => { this.weight = input; }}
+                    underlineColorAndroid='rgba(0,0,0,0)'
+                    placeholder="KG"
+                    placeholderTextColor="#ffffff"
+                    value={this.state.weight}
+                />
+
+        <View style={styles.container2}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => this.props.navigation.navigate('Consent')}>
+            }}>
+            <Text style={styles.buttonText}>BACK{this.props.type}</Text>
+          </TouchableOpacity>
+
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
@@ -39,9 +53,9 @@ export default class WeightScreen extends React.Component {
             <Text style={styles.buttonText}>NEXT{this.props.type}</Text>
           </TouchableOpacity>
         </View>
+
       </View>
-      </View>
-     
+
     );
   }
 }
@@ -57,7 +71,8 @@ const styles = StyleSheet.create({
   container2: {
     backgroundColor: '#1C272A',
     flexGrow: 1,
-    flexDirection: 'row'
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   signupButton: {
     color: '#4CA4B0',
@@ -74,6 +89,20 @@ const styles = StyleSheet.create({
   signupText: {
     color: 'rgba(255,255,255,0.6)',
     fontSize: 16
+  },
+  signupText2: {
+    color: 'rgba(255,255,255,0.6)',
+    fontSize: 16,
+    paddingVertical: 32,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  signupText3: {
+    color: 'rgba(255,255,255,0.6)',
+    fontSize: 24,
+    paddingVertical: 32,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   button: {
     width: 300,
@@ -97,5 +126,15 @@ const styles = StyleSheet.create({
     marginVertical: 25,
     paddingVertical: 16,
     flexDirection: 'row'
-  }
+  },
+  inputBox: {
+    width: 300,
+    backgroundColor: '#0C2331',
+    borderRadius: 25,
+    paddingHorizontal: 16,
+    fontSize: 16,
+    color: '#ffffff',
+    marginVertical: 10,
+    paddingVertical: 16
+},
 });
