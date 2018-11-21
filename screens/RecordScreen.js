@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Expo from 'expo';
 
 export default class RecordScreen extends React.Component {
@@ -30,7 +30,7 @@ export default class RecordScreen extends React.Component {
 
   render() {
     if (!this.state.location) {
-      return (<View>
+      return (<View style={styles.container}>
         <Text style={styles.signupTextCont}>
           Loading Loading Loading
         </Text>
@@ -42,10 +42,33 @@ export default class RecordScreen extends React.Component {
         initialRegion={{
           latitude: this.state.location.coords.latitude,
           longitude: this.state.location.coords.longitude,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
+          latitudeDelta: 0.0922 /4,
+          longitudeDelta: 0.0421 /4,
         }}>
-        <Expo.MapView.Marker coordinate={this.state.location.coords}/>
+        <Expo.MapView.Marker.Animated
+        ref={marker => {
+          this.marker = marker;
+        }} 
+        coordinate={this.state.location.coords}
+        image={require('../assets/images/location3.png')}
+        />
+        <Expo.MapView.Polyline
+        coordinate={this.state.location.coords}
+        strokeWidth={5}
+        />
+          <View style={styles.buttonContainer}>
+          <TouchableOpacity style={[styles.bubble, styles.button]}>
+            <Text style={styles.topBarContent}>
+              Distance: {parseFloat(this.state.distanceTravelled).toFixed(2)} km
+            </Text>
+            <Text style={styles.topBarContent}>
+              Time: {parseFloat(this.state.distanceTravelled).toFixed(2)} 
+            </Text>
+            <Text style={styles.topBarContent}>
+              Calories Burned: {parseFloat(this.state.distanceTravelled).toFixed(2)} 
+            </Text>
+          </TouchableOpacity>
+        </View>
       </Expo.MapView>
     );
   }
@@ -74,4 +97,32 @@ const styles = StyleSheet.create({
     color: 'rgba(255,255,255,0.6)',
     fontSize: 16
   },
+  bubble: {
+    flex: 1,
+    backgroundColor: "rgba(255,255,255,0.7)",
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+    borderRadius: 20
+  },
+  latlng: {
+    width: 200,
+    alignItems: "stretch"
+  },
+  button: {
+    width: 80,
+    paddingHorizontal: 12,
+    alignItems: "center",
+    marginHorizontal: 10
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    marginVertical: 20,
+    backgroundColor: "transparent"
+  },
+  topBarContent: {
+    flexGrow: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 16,
+  }
 });
