@@ -1,23 +1,56 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-
-export default class SettingsScreen extends React.Component {
+import Expo from 'expo';
+export default class RecordScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.signupTextCont}>
-          <Text style={styles.signupText}>Record Screen</Text>
-        </View>
-      </View>
+  state = {
+    location: null,
+  }
 
+
+  _getLocationAsync = async () => {
+    let { status } = await Expo.Permissions.askAsync(Expo.Permissions.LOCATION);
+    if (status != 'granted') {
+      console.error("Location permission not granted!");
+      return;
+    }
+    let location = await Expo.Location.getCurrentPositionAsync({});
+    this.setState({ location });
+  }
+
+  componentDidMount() {
+    this._getLocationAsync();
+  }
+
+  render() {
+
+    if (!this.state.location) {
+      return (
+        <View>
+          <Text Loading></Text>
+        </View>
+      )
+    }
+    return (
+      <Expo.MapView 
+        style={{ flex: 1 }} 
+        initialRegion={{
+          latitude: this.state.location.coords.latitude,
+          longitude: this.state.location.coords.longitude,
+          latitudeDelta: 0.0922 / 3 ,
+          longitudeDelta: 0.0421 / 3,
+        }}
+        >
+        <Expo.MapView.Marker 
+        coordinate={this.state.location.coords} 
+        title="You are here" />
+        </Expo.MapView>
     );
   }
 }
-
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#1C272A',
