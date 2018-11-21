@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Expo from 'expo';
+
 export default class RecordScreen extends React.Component {
   static navigationOptions = {
     header: null,
@@ -17,7 +18,9 @@ export default class RecordScreen extends React.Component {
       console.error("Location permission not granted!");
       return;
     }
+    console.log('Working');
     let location = await Expo.Location.getCurrentPositionAsync({});
+    console.log('Done');
     this.setState({ location });
   }
 
@@ -26,31 +29,28 @@ export default class RecordScreen extends React.Component {
   }
 
   render() {
-
     if (!this.state.location) {
-      return (
-        <View>
-          <Text Loading></Text>
-        </View>
-      )
+      return (<View>
+        <Text style={styles.signupTextCont}>
+          Loading Loading Loading
+        </Text>
+      </View>)
     }
     return (
-      <Expo.MapView 
-        style={{ flex: 1 }} 
+      <Expo.MapView
+        style={{ flex: 1 }}
         initialRegion={{
           latitude: this.state.location.coords.latitude,
           longitude: this.state.location.coords.longitude,
-          latitudeDelta: 0.0922 / 3 ,
-          longitudeDelta: 0.0421 / 3,
-        }}
-        >
-        <Expo.MapView.Marker 
-        coordinate={this.state.location.coords} 
-        title="You are here" />
-        </Expo.MapView>
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}>
+        <Expo.MapView.Marker coordinate={this.state.location.coords}/>
+      </Expo.MapView>
     );
   }
 }
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#1C272A',
