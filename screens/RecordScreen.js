@@ -1,78 +1,83 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Expo from 'expo';
+import React, { Component } from 'react';
+import { Platform, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Constants, Location, Permissions } from 'expo';
+import pick from 'object.pick';
 
-export default class RecordScreen extends React.Component {
-  static navigationOptions = {
-    header: null,
+const GEOLOCATION_OPTIONS = { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 };
+
+export default class App extends Component {
+  state = {
+    location: { coords: { latitude: 0, longitude: 0 } },
+    routeCoordinates: []
   };
 
-  state = {
-    location: null,
+  componentWillMount() {
+    Location.watchPositionAsync(GEOLOCATION_OPTIONS, this.locationChanged);
+
+  }
+
+  locationChanged = (location) => {
+    region = {
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+      latitudeDelta: 0.1,
+      longitudeDelta: 0.05,
+    },
+      this.setState({ location, region })
+    console.log(routeCoordinates);
+
+    const { routeCoordinates } = this.state
+    const positionLatLngs = pick(location.coords, ['latitude', 'longitude'])
+    this.setState({ routeCoordinates: routeCoordinates.concat(positionLatLngs) })
   }
 
 
-  _getLocationAsync = async () => {
-    let { status } = await Expo.Permissions.askAsync(Expo.Permissions.LOCATION);
-    if (status != 'granted') {
-      console.error("Location permission not granted!");
-      return;
-    }
-    console.log('Working');
-    let location = await Expo.Location.getCurrentPositionAsync({});
-    console.log('Done');
-    this.setState({ location });
-  }
-
-  componentDidMount() {
-    this._getLocationAsync();
-  }
+  //on location changed, we need to append the location to 
+  //the polyline coordinates array, therefore drawing a route as user moves
 
   render() {
-    if (!this.state.location) {
-      return (<View style={styles.container}>
-        <Text style={styles.signupTextCont}>
-          Loading Loading Loading
-        </Text>
-      </View>)
-    }
     return (
       <Expo.MapView
         style={{ flex: 1 }}
-        initialRegion={{
-          latitude: this.state.location.coords.latitude,
-          longitude: this.state.location.coords.longitude,
-          latitudeDelta: 0.0922 /4,
-          longitudeDelta: 0.0421 /4,
-        }}>
-        <Expo.MapView.Marker.Animated
-        ref={marker => {
-          this.marker = marker;
-        }} 
-        coordinate={this.state.location.coords}
-        image={require('../assets/images/location3.png')}
-        />
+        showsUserLocation={true}
+        region={this.state.region}
+      >
+
         <Expo.MapView.Polyline
-        coordinate={this.state.location.coords}
-        strokeWidth={5}
+          coordinates={this.state.routeCoordinates}
+          strokeColor="#000" // fallback for when `strokeColors` is not supported by the map-provider
+          strokeColors={[
+            '#7F0000',
+            '#00000000', // no color, creates a "long" gradient between the previous and next coordinate
+            '#B24112',
+            '#E5845C',
+            '#238C23',
+            '#7F0000'
+          ]}
+          strokeWidth={6}
         />
-          <View style={styles.buttonContainer}>
+
+        <View style={styles.buttonContainer}>
           <TouchableOpacity style={[styles.bubble, styles.button]}>
             <Text style={styles.topBarContent}>
               Distance: {parseFloat(this.state.distanceTravelled).toFixed(2)} km
             </Text>
             <Text style={styles.topBarContent}>
-              Time: {parseFloat(this.state.distanceTravelled).toFixed(2)} 
+              Time: {parseFloat(this.state.distanceTravelled).toFixed(2)}
             </Text>
             <Text style={styles.topBarContent}>
-              Calories Burned: {parseFloat(this.state.distanceTravelled).toFixed(2)} 
+              Calories Burned: {parseFloat(this.state.distanceTravelled).toFixed(2)}
             </Text>
           </TouchableOpacity>
         </View>
       </Expo.MapView>
+
     );
   }
+
 }
+
 
 const styles = StyleSheet.create({
   container: {
