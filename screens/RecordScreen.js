@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { Platform, Text, View, StyleSheet, TouchableHighlight, ListView } from 'react-native';
 import { Constants, Location, Permissions } from 'expo';
 import pick from 'object.pick';
-import haversine from 'haversine';
 import TimeFormatter from 'minutes-seconds-milliseconds';
 
 const GEOLOCATION_OPTIONS = { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 };
@@ -14,88 +13,101 @@ let ds = new ListView.DataSource({
   rowHasChanged: (row1, row2) => row1 !== row2,
 });
 
+var geo = require('node-geo-distance');
+
 export default class App extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-    dataSource: ds.cloneWithRows(laps),
-    isRunning: false,
-    mainTimer: null,
-    LapTimer: null,
-    mainTimerStart: null,
-    LapTimerStart: null,
-    location: { coords: { latitude: 0, longitude: 0 } },
-    routeCoordinates: [],
-    prevLatLng: {},
-    distanceTravelled: 0,
-    changeCount: 0,
-  };
-}
+      dataSource: ds.cloneWithRows(laps),
+      isRunning: false,
+      mainTimer: null,
+      LapTimer: null,
+      mainTimerStart: null,
+      LapTimerStart: null,
+      location: { coords: { latitude: 0, longitude: 0 } },
+      routeCoordinates: [],
+      prevLatLng: {},
+      distanceTravelled: 0,
+      changeCount: 0,
+    };
+  }
 
-  calcDistance = newLatLng => {
-    const { prevLatLng } = this.state;
-    return haversine(prevLatLng, newLatLng) || 0;
-  };
 
   componentWillMount() {
     Location.watchPositionAsync(GEOLOCATION_OPTIONS, this.locationChanged);
 
   }
 
+  calcDistance = newLatLng => {
+
+    let arridx = this.state.routeCoordinates.length;
+
+    if (arridx < 1) {
+      return;
+    }
+
+    var coord1 = {
+      latitude: newLatLng.latitude,
+      longitude: newLatLng.longitude
+    }
+
+    let coord2 = this.state.routeCoordinates[0];
+
+    var haversineDist = geo.haversineSync(coord1, coord2);
+    console.log(haversineDist);
+    this.setState({
+      distanceTravelled: haversineDist/1000
+    })
+  };
+
   locationChanged = (location) => {
-    const { latitude, longitude } = location.coords;
-      const newCoordinate = {
-        latitude,
-        longitude
-      };
 
-      distanceTravelled = this.state;
-      prevLatLng = this.state;
-      const newDistance = this.calcDistance(newCoordinate);
-
-      this.setState({ distanceTravelled:
-         distanceTravelled + newDistance })
-
-      //update user location and map drawn
-      region = {
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
-        latitudeDelta: 0.1,
-        longitudeDelta: 0.05,
-      },
-        this.setState({ location, region })
-
-      //draw line following user
-      const { routeCoordinates } = this.state
-      const positionLatLngs = pick(location.coords, ['latitude', 'longitude'])
-      this.setState({ routeCoordinates: routeCoordinates.concat(positionLatLngs) })
-
-      this.setState({ prevLatLng: newCoordinate })
-      console.log(this.state.distanceTravelled);
-    }
-
-    _renderTimers() {
-      return (
-        <View styles={styles.timerWrapper}>
-          <Text style={styles.mainTimer}>{ TimeFormatter(this.state.mainTimer) }</Text>
-          </View>
-      )
-    }
-
-    _renderDistance() {
-      return (
-        <View styles={styles.timerWrapper}>
-          <Text style={styles.mainTimer}>{ TimeFormatter(this.state.mainTimer) }</Text>
-          </View>
-      )
-    }
+    const newCoordinate = this.state.location.coords;
+    isRunning = this.state;
     
+    if (isRunning){
+    this.calcDistance(newCoordinate)
+    }
+
+    //update user location and map drawn
+    region = {
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+      latitudeDelta: 0.1,
+      longitudeDelta: 0.05,
+    },
+      this.setState({ location, region })
+
+    //draw line following user
+    const { routeCoordinates } = this.state
+    const positionLatLngs = pick(location.coords, ['latitude', 'longitude'])
+    this.setState({ routeCoordinates: routeCoordinates.concat(positionLatLngs) })
+
+  }
+
+  _renderTimers() {
+    return (
+      <View styles={styles.timerWrapper}>
+        <Text style={styles.mainTimer}>{TimeFormatter(this.state.mainTimer)}</Text>
+      </View>
+    )
+  }
+
+  _renderDistance() {
+    return (
+      <View styles={styles.timerWrapper}>
+        <Text style={styles.mainTimer}>{parseFloat(this.state.distanceTravelled).toFixed(2)} km</Text>
+      </View>
+    )
+  }
+
   _renderStartButton() {
     return (
       <View styles={styles.rowWrapper}>
         <TouchableHighlight style={styles.rowWrapper} underlayColor='#ddd' onPress={this.handleStartStop.bind(this)} style={styles.button}>
-        <Text style={[styles.startBtn, this.state.isRunning && styles.stopBtn]}>{this.state.isRunning? 'Stop' : 'Start'}</Text>
+          <Text style={[styles.startBtn, this.state.isRunning && styles.stopBtn]}>{this.state.isRunning ? 'Stop' : 'Start'}</Text>
         </TouchableHighlight>
       </View>
     );
@@ -105,13 +117,13 @@ export default class App extends Component {
     return (
       <View styles={styles.rowWrapper}>
         <TouchableHighlight style={styles.rowWrapper} underlayColor='#777' onPress={this.handleLapReset.bind(this)} style={styles.button}>
-        <Text>{ (this.state.mainTimerStart &&  !this.state.isRunning) ? 'Reset' : 'Finish' }</Text>
+          <Text>{(this.state.mainTimerStart && !this.state.isRunning) ? 'Reset' : 'Finish'}</Text>
         </TouchableHighlight>
       </View>
     );
   }
 
-  handleStartStop(){
+  handleStartStop() {
     let { isRunning, firstTime, mainTimer, LapTimer } = this.state;
 
     //Stop button clicked
@@ -135,21 +147,21 @@ export default class App extends Component {
         mainTimer: new Date() - this.state.mainTimerStart + mainTimer,
         LapTimer: new Date() - this.state.LapTimerStart + LapTimer,
       });
-    }, 30 );
+    }, 30);
   }
 
   handleLapReset() {
-    let { isRunning, mainTimerStart} = this.state;
+    let { isRunning, mainTimerStart } = this.state;
 
     //Reset button clicked
     if (mainTimerStart && !isRunning) {
       laps: [],
-      this.setState({
-        mainTimerStart: null,
-        LapTimerStart: null,
-        mainTimer: 0,
-        LapTimer: 0,
-      });
+        this.setState({
+          mainTimerStart: null,
+          LapTimerStart: null,
+          mainTimer: 0,
+          LapTimer: 0,
+        });
     }
 
     //Lap button clicked do nothing
@@ -180,11 +192,12 @@ export default class App extends Component {
 
         <View style={styles.top}>
           {this._renderTimers()}
-          </View>
-          <View style={styles.buttonWrapper}>
-           {this._renderStartButton()}
-           {this._renderFinishButton()}
-           </View>
+          {this._renderDistance()}
+        </View>
+        <View style={styles.buttonWrapper}>
+          {this._renderStartButton()}
+          {this._renderFinishButton()}
+        </View>
       </Expo.MapView>
 
     );
@@ -262,7 +275,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   LapTimer: {
-    fontSize: 18, 
+    fontSize: 18,
     borderWidth: 0.5,
     alignSelf: 'flex-end'
   },
