@@ -1,7 +1,7 @@
 import Expo from 'expo';
 import React, { Component } from 'react';
-import { Platform, Text, View, StyleSheet, TouchableHighlight, ListView } from 'react-native';
-import { Constants, Location, Permissions } from 'expo';
+import { Text, View, StyleSheet, TouchableHighlight, ListView } from 'react-native';
+import { Location, Permissions } from 'expo';
 import pick from 'object.pick';
 import TimeFormatter from 'minutes-seconds-milliseconds';
 
@@ -28,6 +28,7 @@ export default class App extends Component {
       LapTimerStart: null,
       location: { coords: { latitude: 0, longitude: 0 } },
       routeCoordinates: [],
+      lineCoordinates: [],
       prevLatLng: {},
       distanceTravelled: 0,
       changeCount: 0,
@@ -41,8 +42,9 @@ export default class App extends Component {
   }
 
   calcDistance = newLatLng => {
+    distanceTravelled = this.state.distanceTravelled;
+    var arridx = this.state.routeCoordinates.length;
 
-    let arridx = this.state.routeCoordinates.length;
 
     if (arridx < 1) {
       return;
@@ -53,22 +55,29 @@ export default class App extends Component {
       longitude: newLatLng.longitude
     }
 
-    let coord2 = this.state.routeCoordinates[0];
+    if (arridx > 1) {
+      let coord2 = this.state.prevLatLng;
 
-    var haversineDist = geo.haversineSync(coord1, coord2);
-    console.log(haversineDist);
-    this.setState({
-      distanceTravelled: haversineDist/1000
-    })
+      var haversineDist = geo.haversineSync(coord1, coord2);
+      console.log(distanceTravelled);
+      this.setState({
+        distanceTravelled: distanceTravelled + (haversineDist / 1000)
+      })
+    }
   };
 
   locationChanged = (location) => {
 
+    const { routeCoordinates } = this.state
+    const { lineCoordinates } = this.state
+    const positionLatLngs = pick(location.coords, ['latitude', 'longitude'])
     const newCoordinate = this.state.location.coords;
-    isRunning = this.state;
-    
-    if (isRunning){
-    this.calcDistance(newCoordinate)
+    isRunning = this.state.isRunning;
+
+    if (isRunning === true) {
+      this.calcDistance(newCoordinate)
+
+      this.setState({ lineCoordinates: lineCoordinates.concat(positionLatLngs) })
     }
 
     //update user location and map drawn
@@ -80,11 +89,8 @@ export default class App extends Component {
     },
       this.setState({ location, region })
 
-    //draw line following user
-    const { routeCoordinates } = this.state
-    const positionLatLngs = pick(location.coords, ['latitude', 'longitude'])
+    this.setState({ prevLatLng: routeCoordinates[this.state.routeCoordinates.length - 1] })
     this.setState({ routeCoordinates: routeCoordinates.concat(positionLatLngs) })
-
   }
 
   _renderTimers() {
@@ -177,7 +183,7 @@ export default class App extends Component {
       >
 
         <Expo.MapView.Polyline
-          coordinates={this.state.routeCoordinates}
+          coordinates={this.state.lineCoordinates}
           strokeColor="#000" // fallback for when `strokeColors` is not supported by the map-provider
           strokeColors={[
             '#7F0000',
