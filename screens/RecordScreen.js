@@ -1,6 +1,6 @@
 import Expo from 'expo';
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, TouchableHighlight, ListView } from 'react-native';
+import { Text, View, StyleSheet, TouchableHighlight, TouchableOpacity, ListView } from 'react-native';
 import { Location, Permissions } from 'expo';
 import pick from 'object.pick';
 import TimeFormatter from 'minutes-seconds-milliseconds';
@@ -16,6 +16,9 @@ let ds = new ListView.DataSource({
 var geo = require('node-geo-distance');
 
 export default class App extends Component {
+  static navigationOptions = {
+    header: null,
+  };
 
   constructor(props) {
     super(props);
@@ -70,15 +73,19 @@ export default class App extends Component {
 
   locationChanged = (location) => {
 
+    //delcarations
     const { routeCoordinates } = this.state
     const { lineCoordinates } = this.state
+    const { distanceTravelled } = this.state
     const positionLatLngs = pick(location.coords, ['latitude', 'longitude'])
     const newCoordinate = this.state.location.coords;
     isRunning = this.state.isRunning;
 
+    //when user presses start
     if (isRunning === true) {
+      //begin calculating distance
       this.calcDistance(newCoordinate)
-
+      //append route coordinates 
       this.setState({ lineCoordinates: lineCoordinates.concat(positionLatLngs) })
     }
 
@@ -91,38 +98,82 @@ export default class App extends Component {
     },
       this.setState({ location, region })
 
+    //set previous coord and update all data
     this.setState({ prevLatLng: routeCoordinates[this.state.routeCoordinates.length - 1] })
     this.setState({ routeCoordinates: routeCoordinates.concat(positionLatLngs) })
-    if (location.coords.speed > 0){
-    this.setState({ speed: location.coords.speed });
+
+    //set speed
+    if (location.coords.speed > 0) {
+      this.setState({ speed: location.coords.speed });
     }
     //when not moving api returns -1 for speed so set 0 in this case
     else {
-      this.setState({ speed: 0})
+      this.setState({ speed: 0 })
     }
 
+    //Calculate calories burned placeholder
+    //Men use the following formula:
+    //Calories Burned = [(Age x 0.2017) — (Weight x 0.09036) + (Heart Rate x 0.6309) — 55.0969] x Time / 4.184.
+    //Women use the following formula:
+    //Calories Burned = [(Age x 0.074) — (Weight x 0.05741) + (Heart Rate x 0.4472) — 20.4022] x Time / 4.184.
+
+    //Less accurate:
+    //Running (total calories spent per km) 
+    //.75 x your weight (in lbs.)
+
+    //total cal burned in a km
+    var kCal = (0.75 * 65)/1000 
+    var mTravlled = (distanceTravelled * 1000)
+
+    kCal = mTravlled * kCal;
+    this.setState({ kCal: kCal })
+
+  }
+
+  _renderKcal() {
+    return (
+      <View style={styles.buttonContainer2}>
+        <TouchableOpacity style={[styles.bubble, styles.button]}>
+          <Text style={styles.bottomBarContent}>
+            {parseFloat(this.state.kCal).toFixed(2)} kCal
+          </Text>
+        </TouchableOpacity>
+      </View>
+    )
   }
 
   _renderTimers() {
     return (
-      <View styles={styles.timerWrapper}>
-        <Text style={styles.mainTimer}>{TimeFormatter(this.state.mainTimer)}</Text>
+      <View style={styles.buttonContainer2}>
+        <TouchableOpacity style={[styles.bubble, styles.button]}>
+          <Text style={styles.bottomBarContent}>
+            Time: {TimeFormatter(this.state.mainTimer)}
+          </Text>
+        </TouchableOpacity>
       </View>
     )
   }
 
   _renderDistance() {
     return (
-      <View styles={styles.timerWrapper}>
-        <Text style={styles.mainTimer}>{parseFloat(this.state.distanceTravelled).toFixed(2)} km</Text>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={[styles.bubble, styles.button]}>
+          <Text style={styles.bottomBarContent}>
+            {parseFloat(this.state.distanceTravelled).toFixed(2)} km
+          </Text>
+        </TouchableOpacity>
       </View>
     )
   }
 
   _renderSpeed() {
     return (
-      <View styles={styles.timerWrapper}>
-        <Text style={styles.mainTimer}>{parseFloat(this.state.speed).toFixed(2)} mph</Text>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={[styles.bubble, styles.button]}>
+          <Text style={styles.bottomBarContent}>
+            {parseFloat(this.state.speed).toFixed(2)} kmph
+          </Text>
+        </TouchableOpacity>
       </View>
     )
   }
@@ -130,7 +181,7 @@ export default class App extends Component {
   _renderStartButton() {
     return (
       <View styles={styles.rowWrapper}>
-        <TouchableHighlight style={styles.rowWrapper} underlayColor='#ddd' onPress={this.handleStartStop.bind(this)} style={styles.button}>
+        <TouchableHighlight style={styles.rowWrapper} underlayColor='#ddd' onPress={this.handleStartStop.bind(this)} style={styles.buttonClick}>
           <Text style={[styles.startBtn, this.state.isRunning && styles.stopBtn]}>{this.state.isRunning ? 'Stop' : 'Start'}</Text>
         </TouchableHighlight>
       </View>
@@ -140,7 +191,7 @@ export default class App extends Component {
   _renderFinishButton() {
     return (
       <View styles={styles.rowWrapper}>
-        <TouchableHighlight style={styles.rowWrapper} underlayColor='#777' onPress={this.handleLapReset.bind(this)} style={styles.button}>
+        <TouchableHighlight style={styles.rowWrapper} underlayColor='#777' onPress={this.handleLapReset.bind(this)} style={styles.buttonClick}>
           <Text>{(this.state.mainTimerStart && !this.state.isRunning) ? 'Reset' : 'Finish'}</Text>
         </TouchableHighlight>
       </View>
@@ -193,38 +244,40 @@ export default class App extends Component {
 
   render() {
     return (
+      <View style={styles.container}>
+        <Expo.MapView
+          style={styles.map}
+          showsUserLocation={true}
+          region={this.state.region}
+        >
 
-      <Expo.MapView
-        style={{ flex: 1 }}
-        showsUserLocation={true}
-        region={this.state.region}
-      >
-
-        <Expo.MapView.Polyline
-          coordinates={this.state.lineCoordinates}
-          strokeColor="#000" // fallback for when `strokeColors` is not supported by the map-provider
-          strokeColors={[
-            '#7F0000',
-            '#00000000', // no color, creates a "long" gradient between the previous and next coordinate
-            '#B24112',
-            '#E5845C',
-            '#238C23',
-            '#7F0000'
-          ]}
-          strokeWidth={6}
-        />
-
-        <View style={styles.top}>
+          <Expo.MapView.Polyline
+            coordinates={this.state.lineCoordinates}
+            strokeColor="#000" // fallback for when `strokeColors` is not supported by the map-provider
+            strokeColors={[
+              '#7F0000',
+              '#00000000', // no color, creates a "long" gradient between the previous and next coordinate
+              '#B24112',
+              '#E5845C',
+              '#238C23',
+              '#7F0000'
+            ]}
+            strokeWidth={6}
+          />
+        </Expo.MapView>
+        <View style={styles.stats}>
           {this._renderTimers()}
-          {this._renderDistance()}
-          {this._renderSpeed()}
+          <View style={styles.buttonContainer}>
+            {this._renderDistance()}
+            {this._renderSpeed()}
+          </View>
+          {this._renderKcal()}
         </View>
         <View style={styles.buttonWrapper}>
           {this._renderStartButton()}
           {this._renderFinishButton()}
         </View>
-      </Expo.MapView>
-
+      </View>
     );
   }
 
@@ -233,10 +286,12 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#1C272A',
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: "flex-end",
+    alignItems: "center"
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject
   },
   signupButton: {
     color: '#4CA4B0',
@@ -265,13 +320,14 @@ const styles = StyleSheet.create({
     width: 200,
     alignItems: "stretch"
   },
-  button: {
+  buttonClick: {
     height: 80,
     width: 80,
     borderRadius: 40,
     backgroundColor: '#fff',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingHorizontal: 10
   },
   topBarContent: {
     flexGrow: 1,
@@ -318,5 +374,37 @@ const styles = StyleSheet.create({
   },
   rowWrapper: {
     flexDirection: 'row',
+  },
+  bubble: {
+    flex: 1,
+    backgroundColor: "rgba(255,255,255,0.7)",
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+    borderRadius: 20
+  },
+  button: {
+    width: 80,
+    paddingHorizontal: 12,
+    alignItems: "center",
+    marginHorizontal: 10
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    marginVertical: 5,
+    backgroundColor: "transparent",
+    right: 45,
+    width: 180
+  },
+  buttonContainer2: {
+    flexDirection: "row",
+    marginVertical: 5,
+    backgroundColor: "transparent",
+    width: 180
+  },
+  stats: {
+    marginVertical: 20,
+    height: 80,
+    width: 180,
+    bottom: 450
   }
 });
