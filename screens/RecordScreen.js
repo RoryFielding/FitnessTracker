@@ -32,6 +32,8 @@ export default class App extends Component {
       prevLatLng: {},
       distanceTravelled: 0,
       changeCount: 0,
+      speed: 0,
+      calBurned: 0,
     };
   }
 
@@ -43,7 +45,7 @@ export default class App extends Component {
 
   calcDistance = newLatLng => {
     distanceTravelled = this.state.distanceTravelled;
-    var arridx = this.state.routeCoordinates.length;
+    var arridx = this.state.lineCoordinates.length;
 
 
     if (arridx < 1) {
@@ -59,7 +61,7 @@ export default class App extends Component {
       let coord2 = this.state.prevLatLng;
 
       var haversineDist = geo.haversineSync(coord1, coord2);
-      console.log(distanceTravelled);
+
       this.setState({
         distanceTravelled: distanceTravelled + (haversineDist / 1000)
       })
@@ -91,6 +93,14 @@ export default class App extends Component {
 
     this.setState({ prevLatLng: routeCoordinates[this.state.routeCoordinates.length - 1] })
     this.setState({ routeCoordinates: routeCoordinates.concat(positionLatLngs) })
+    if (location.coords.speed > 0){
+    this.setState({ speed: location.coords.speed });
+    }
+    //when not moving api returns -1 for speed so set 0 in this case
+    else {
+      this.setState({ speed: 0})
+    }
+
   }
 
   _renderTimers() {
@@ -105,6 +115,14 @@ export default class App extends Component {
     return (
       <View styles={styles.timerWrapper}>
         <Text style={styles.mainTimer}>{parseFloat(this.state.distanceTravelled).toFixed(2)} km</Text>
+      </View>
+    )
+  }
+
+  _renderSpeed() {
+    return (
+      <View styles={styles.timerWrapper}>
+        <Text style={styles.mainTimer}>{parseFloat(this.state.speed).toFixed(2)} mph</Text>
       </View>
     )
   }
@@ -199,6 +217,7 @@ export default class App extends Component {
         <View style={styles.top}>
           {this._renderTimers()}
           {this._renderDistance()}
+          {this._renderSpeed()}
         </View>
         <View style={styles.buttonWrapper}>
           {this._renderStartButton()}
