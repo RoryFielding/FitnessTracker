@@ -13,6 +13,10 @@ export default class WeightScreen extends React.Component {
   }
 }
 
+setWeight(weight) {
+  this.setState({ weight })
+}
+
   render() {
 
     const { navigation } = this.props;
@@ -27,30 +31,34 @@ export default class WeightScreen extends React.Component {
         <Text style={styles.signupText2}>Please enter your weight in KG</Text>
 
         <TextInput style={styles.inputBox}
-                    ref={(input) => { this.weight = input; }}
                     underlineColorAndroid='rgba(0,0,0,0)'
                     placeholder="KG"
                     placeholderTextColor="#ffffff"
+                    selectionColor="#fff"
+                    keyboardType="numeric"
+                    onChangeText={(weight) => this.setWeight(weight)}
                     value={this.state.weight}
+                    onSubmitEditing={() => { this.passwordInput.focus(); }}
+                    blurOnSubmit={false}
                 />
 
         <View style={styles.container2}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => this.props.navigation.navigate('Consent')}>
-            }}>
-            <Text style={styles.buttonText}>BACK{this.props.type}</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
+        <TouchableOpacity
             style={styles.button}
             onPress={() => {
               this.props.navigation.navigate('Height', {
                 username: username,
                 password: password,
+                weight: this.state.weight
               })
             }}>
             <Text style={styles.buttonText}>NEXT{this.props.type}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => this.props.navigation.navigate('Consent')}>
+            }}>
+            <Text style={styles.buttonText}>BACK{this.props.type}</Text>
           </TouchableOpacity>
         </View>
 

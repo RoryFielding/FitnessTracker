@@ -9,18 +9,23 @@ export default class HeightScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      height: ""
+      height: "",
     }
   }
 
+  setHeight(height) {
+    this.setState({ height })
+  }
 
   render() {
 
     const { navigation } = this.props;
     const username = navigation.getParam('username', 'NO-ID');
     const password = navigation.getParam('password', 'NO-ID');
-    return (
+    const weight = navigation.getParam('weight', 'NO-ID');
 
+    
+    return (
       <View style={styles.container}>
 
         <Text style={styles.signupText3}>Your Height</Text>
@@ -28,14 +33,30 @@ export default class HeightScreen extends React.Component {
         <Text style={styles.signupText2}>Please enter your height in CM</Text>
 
         <TextInput style={styles.inputBox}
-          ref={(input) => { this.height = input; }}
-          underlineColorAndroid='rgba(0,0,0,0)'
-          placeholder="CM"
-          placeholderTextColor="#ffffff"
-          value={this.state.height}
-        />
+                    underlineColorAndroid='rgba(0,0,0,0)'
+                    placeholder="CM"
+                    placeholderTextColor="#ffffff"
+                    selectionColor="#fff"
+                    keyboardType="numeric"
+                    onChangeText={(height) => this.setHeight(height)}
+                    value={this.state.height}
+                    onSubmitEditing={() => { this.passwordInput.focus(); }}
+                    blurOnSubmit={false}
+                />
 
         <View style={styles.container2}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              this.props.navigation.navigate('Goal', {
+                username: username,
+                password: password,
+                weight: weight,
+                height: this.state.height
+              })
+            }}>
+            <Text style={styles.buttonText}>NEXT{this.props.type}</Text>
+          </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
             onPress={() => this.props.navigation.navigate('Weight')}>
@@ -43,16 +64,6 @@ export default class HeightScreen extends React.Component {
             <Text style={styles.buttonText}>BACK{this.props.type}</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              this.props.navigation.navigate('Goal', {
-                username: username,
-                password: password,
-              })
-            }}>
-            <Text style={styles.buttonText}>NEXT{this.props.type}</Text>
-          </TouchableOpacity>
         </View>
 
       </View>
@@ -137,5 +148,5 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     marginVertical: 10,
     paddingVertical: 16
-},
+  },
 });

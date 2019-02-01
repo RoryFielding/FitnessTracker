@@ -1,18 +1,64 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { ScrollView, View, Image, Text, StyleSheet } from 'react-native';
 
 export default class AchievementsScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      pbTimeMin: 18,
+      pbTimeSec: 5,
+      pbDist: 5,
+      pbCal: 456,
+      overTime: 1231,
+      overDist: 332,
+      overCal: 1432
+    }
+  }
+
   render() {
+    const state = this.state;
     return (
-      <View style={styles.container}>
-        <View style={styles.signupTextCont}>
-          <Text style={styles.signupText}>Achievements Screen</Text>
+      <ScrollView
+        contentContainerStyle={styles.container}>
+        <Image style={{ width: 260, height: 160 }}
+          source={require('../assets/images/icon3.png')} />
+        <Text style={styles.titleText}>Achievements</Text>
+
+<View style={styles.container} >
+        <Text style={styles.title2Text}>
+            Personal Best
+          </Text>
+          <Text style={styles.signupText}>
+            Time:  {this.state.pbTimeMin} mins {this.state.pbTimeSec} seconds 
+          </Text>
+        <Text style={styles.signupText}>
+          Distance:  {this.state.pbDist} km
+        </Text>
+        <Text style={styles.signupText}>
+          Calories Burned:  {this.state.pbCal} kCal
+        </Text>
         </View>
-      </View>
+
+        <View style={styles.container} >
+        <Text style={styles.title2Text}>
+            Overall
+          </Text>
+          <Text style={styles.signupText}>
+            Time:  {this.state.overTime} mins
+          </Text>
+        <Text style={styles.signupText}>
+          Distance:  {this.state.overDist} km
+        </Text>
+        <Text style={styles.signupText}>
+          Calories Burned:  {this.state.overCal} kCal
+        </Text>
+        </View>
+      </ScrollView>
 
     );
   }
@@ -40,5 +86,16 @@ const styles = StyleSheet.create({
   signupText: {
     color: 'rgba(255,255,255,0.6)',
     fontSize: 16
+  },
+  titleText: {
+    color: 'rgba(255,255,255,0.6)',
+    fontSize: 32,
+    top: -35,
+    borderColor: 'black'
+  },
+  title2Text: {
+    color: 'rgba(255,255,255,0.6)',
+    fontSize: 22,
+    borderColor: 'black'
   },
 });

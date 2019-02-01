@@ -45,17 +45,21 @@ checkHealthBox() {
       <ScrollView style={styles.container}>
         <View  style={styles.container2}>
           <Text style={styles.signupText3}>Your Consents</Text>
-          <Text style={styles.signupText2}>Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum orem ipsum orem ipsum orem ipsum orem ipsum orem ipsum </Text>
+          <View style={styles.textBox2}>
+          <Text style={styles.signupText2}>We want you to understand how we collect and use your data. Please accept all of the following data consents to be able to use your account. </Text>
+         </View>
          </View>
           <View style={styles.container}>
             <CheckBox
-              title='Data Processing'
+              title='Sensitive Data Processing'
               containerStyle={styles.checkBox}
               checked={this.state.dpConsent}
               textStyle={styles.signupText}
               onPress={() => this.checkDpBox()}
             />
-            <Text style={styles.signupText2}>Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum orem ipsum orem ipsum orem ipsum orem ipsum orem ipsum </Text>
+            <View style={styles.textBox}>
+            <Text style={styles.signupText2}>RunTracker and its affiliates are allowed to process my sensitive personal data to provide wellness and fitness services.</Text>
+          </View>
           </View>
 
           <View style={styles.container}>
@@ -66,7 +70,9 @@ checkHealthBox() {
               textStyle={styles.signupText}
               onPress={() => this.checkDtocBox()}
             />
-            <Text style={styles.signupText2}>Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum orem ipsum orem ipsum orem ipsum orem ipsum orem ipsum </Text>
+            <View style={styles.textBox}>
+            <Text style={styles.signupText2}>RunTracker is allowed to transfer my personal data across the globe, including Europe and the United States of America. I'm aware that laws in different countries may be less protective than those of my country/region. </Text>
+          </View>
           </View>
 
           <View style={styles.container}>
@@ -77,7 +83,9 @@ checkHealthBox() {
               textStyle={styles.signupText}
               onPress={() => this.checkLocBox()}
             />
-            <Text style={styles.signupText2}>Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum orem ipsum orem ipsum orem ipsum orem ipsum orem ipsum </Text>
+            <View style={styles.textBox}>
+            <Text style={styles.signupText2}>Before we start we will need to access your location so we can track your activies while you're using the application.</Text>
+          </View>
           </View>
 
           <View style={styles.container}>
@@ -88,18 +96,14 @@ checkHealthBox() {
               textStyle={styles.signupText}
               onPress={() => this.checkHealthBox()}
             />
-            <Text style={styles.signupText2}>Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum orem ipsum orem ipsum orem ipsum orem ipsum orem ipsum </Text>
+            <View style={styles.textBox}>
+            <Text style={styles.signupText2}>RunTracker collects and uses health data from paired devices, like a heart rate monitor, to give you interesting and useful performance analysis. We collect this data only from sensors or devices you've connected to RunTracker. We do not share it without your consent. </Text>
+          </View>
           </View>
 
         <View style={styles.container2}> 
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => this.props.navigation.navigate('SignUp')}>
-            }}>
-            <Text style={styles.buttonText}>BACK{this.props.type}</Text>
-          </TouchableOpacity>
 
-          <TouchableOpacity
+        <TouchableOpacity
             style={styles.button}
             onPress={() => {
               this.props.navigation.navigate('Weight', {
@@ -109,6 +113,15 @@ checkHealthBox() {
             }}>
             <Text style={styles.buttonText}>NEXT{this.props.type}</Text>
           </TouchableOpacity>
+          
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => this.props.navigation.navigate('SignUp')}>
+            }}>
+            <Text style={styles.buttonText}>BACK{this.props.type}</Text>
+          </TouchableOpacity>
+
+          
           </View>
       </ScrollView>
     );
@@ -185,4 +198,11 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     borderColor: '#1C272A',
   },
+  textBox: {
+    width: 320,
+    left: 30
+  },
+  textBox2: {
+    width: 320,
+  }
 });

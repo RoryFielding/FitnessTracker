@@ -19,18 +19,19 @@ export default class GoalScreen extends React.Component {
       threekbox: false,
       threeptfbox: false,
       fourkbox: false,
+      BMI: ""
     }
   }
 
   checkFhBox() {
-      fhbox = this.state.fhbox
-      onekbox = this.state.onekbox;
-      oneptfkbox = this.state.oneptfkbox;
-      twokbox = this.state.twokbox;
-      twoptfbox = this.state.twoptfbox;
-      threekbox = this.state.threekbox;
-      threeptfbox = this.state.threeptfbox;
-      fourkbox = this.state.fourkbox;
+    fhbox = this.state.fhbox
+    onekbox = this.state.onekbox;
+    oneptfkbox = this.state.oneptfkbox;
+    twokbox = this.state.twokbox;
+    twoptfbox = this.state.twoptfbox;
+    threekbox = this.state.threekbox;
+    threeptfbox = this.state.threeptfbox;
+    fourkbox = this.state.fourkbox;
     this.setState({ fhbox: !this.state.fhbox })
     if (onekbox === true) {
       this.setState({ onekbox: !this.state.onekbox })
@@ -57,13 +58,13 @@ export default class GoalScreen extends React.Component {
 
   checkOnekBox() {
     fhbox = this.state.fhbox
-      onekbox = this.state.onekbox;
-      oneptfkbox = this.state.oneptfkbox;
-      twokbox = this.state.twokbox;
-      twoptfbox = this.state.twoptfbox;
-      threekbox = this.state.threekbox;
-      threeptfbox = this.state.threeptfbox;
-      fourkbox = this.state.fourkbox;
+    onekbox = this.state.onekbox;
+    oneptfkbox = this.state.oneptfkbox;
+    twokbox = this.state.twokbox;
+    twoptfbox = this.state.twoptfbox;
+    threekbox = this.state.threekbox;
+    threeptfbox = this.state.threeptfbox;
+    fourkbox = this.state.fourkbox;
     this.setState({ onekbox: !this.state.onekbox })
     if (fhbox === true) {
       this.setState({ fhbox: !this.state.fhbox })
@@ -90,13 +91,13 @@ export default class GoalScreen extends React.Component {
 
   checkOneptfBox() {
     fhbox = this.state.fhbox
-      onekbox = this.state.onekbox;
-      oneptfkbox = this.state.oneptfkbox;
-      twokbox = this.state.twokbox;
-      twoptfbox = this.state.twoptfbox;
-      threekbox = this.state.threekbox;
-      threeptfbox = this.state.threeptfbox;
-      fourkbox = this.state.fourkbox;
+    onekbox = this.state.onekbox;
+    oneptfkbox = this.state.oneptfkbox;
+    twokbox = this.state.twokbox;
+    twoptfbox = this.state.twoptfbox;
+    threekbox = this.state.threekbox;
+    threeptfbox = this.state.threeptfbox;
+    fourkbox = this.state.fourkbox;
     this.setState({ oneptfkbox: !this.state.oneptfkbox })
     if (onekbox === true) {
       this.setState({ onekbox: !this.state.onekbox })
@@ -123,13 +124,13 @@ export default class GoalScreen extends React.Component {
 
   checkTwokBox() {
     fhbox = this.state.fhbox
-      onekbox = this.state.onekbox;
-      oneptfkbox = this.state.oneptfkbox;
-      twokbox = this.state.twokbox;
-      twoptfbox = this.state.twoptfbox;
-      threekbox = this.state.threekbox;
-      threeptfbox = this.state.threeptfbox;
-      fourkbox = this.state.fourkbox;
+    onekbox = this.state.onekbox;
+    oneptfkbox = this.state.oneptfkbox;
+    twokbox = this.state.twokbox;
+    twoptfbox = this.state.twoptfbox;
+    threekbox = this.state.threekbox;
+    threeptfbox = this.state.threeptfbox;
+    fourkbox = this.state.fourkbox;
     this.setState({ twokbox: !this.state.twokbox })
     if (onekbox === true) {
       this.setState({ onekbox: !this.state.onekbox })
@@ -156,13 +157,13 @@ export default class GoalScreen extends React.Component {
 
   checkTwoptfBox() {
     fhbox = this.state.fhbox
-      onekbox = this.state.onekbox;
-      oneptfkbox = this.state.oneptfkbox;
-      twokbox = this.state.twokbox;
-      twoptfbox = this.state.twoptfbox;
-      threekbox = this.state.threekbox;
-      threeptfbox = this.state.threeptfbox;
-      fourkbox = this.state.fourkbox;
+    onekbox = this.state.onekbox;
+    oneptfkbox = this.state.oneptfkbox;
+    twokbox = this.state.twokbox;
+    twoptfbox = this.state.twoptfbox;
+    threekbox = this.state.threekbox;
+    threeptfbox = this.state.threeptfbox;
+    fourkbox = this.state.fourkbox;
     this.setState({ twoptfbox: !this.state.twoptfbox })
     if (onekbox === true) {
       this.setState({ onekbox: !this.state.onekbox })
@@ -189,13 +190,13 @@ export default class GoalScreen extends React.Component {
 
   checkThreekBox() {
     fhbox = this.state.fhbox
-      onekbox = this.state.onekbox;
-      oneptfkbox = this.state.oneptfkbox;
-      twokbox = this.state.twokbox;
-      twoptfbox = this.state.twoptfbox;
-      threekbox = this.state.threekbox;
-      threeptfbox = this.state.threeptfbox;
-      fourkbox = this.state.fourkbox;
+    onekbox = this.state.onekbox;
+    oneptfkbox = this.state.oneptfkbox;
+    twokbox = this.state.twokbox;
+    twoptfbox = this.state.twoptfbox;
+    threekbox = this.state.threekbox;
+    threeptfbox = this.state.threeptfbox;
+    fourkbox = this.state.fourkbox;
     this.setState({ threekbox: !this.state.threekbox })
     if (onekbox === true) {
       this.setState({ onekbox: !this.state.onekbox })
@@ -222,13 +223,13 @@ export default class GoalScreen extends React.Component {
 
   checkThreeptfBox() {
     fhbox = this.state.fhbox
-      onekbox = this.state.onekbox;
-      oneptfkbox = this.state.oneptfkbox;
-      twokbox = this.state.twokbox;
-      twoptfbox = this.state.twoptfbox;
-      threekbox = this.state.threekbox;
-      threeptfbox = this.state.threeptfbox;
-      fourkbox = this.state.fourkbox;
+    onekbox = this.state.onekbox;
+    oneptfkbox = this.state.oneptfkbox;
+    twokbox = this.state.twokbox;
+    twoptfbox = this.state.twoptfbox;
+    threekbox = this.state.threekbox;
+    threeptfbox = this.state.threeptfbox;
+    fourkbox = this.state.fourkbox;
     this.setState({ threeptfbox: !this.state.threeptfbox })
     if (onekbox === true) {
       this.setState({ onekbox: !this.state.onekbox })
@@ -255,13 +256,13 @@ export default class GoalScreen extends React.Component {
 
   checkFourkBox() {
     fhbox = this.state.fhbox
-      onekbox = this.state.onekbox;
-      oneptfkbox = this.state.oneptfkbox;
-      twokbox = this.state.twokbox;
-      twoptfbox = this.state.twoptfbox;
-      threekbox = this.state.threekbox;
-      threeptfbox = this.state.threeptfbox;
-      fourkbox = this.state.fourkbox;
+    onekbox = this.state.onekbox;
+    oneptfkbox = this.state.oneptfkbox;
+    twokbox = this.state.twokbox;
+    twoptfbox = this.state.twoptfbox;
+    threekbox = this.state.threekbox;
+    threeptfbox = this.state.threeptfbox;
+    fourkbox = this.state.fourkbox;
     this.setState({ fourkbox: !this.state.fourkbox })
     if (onekbox === true) {
       this.setState({ onekbox: !this.state.onekbox })
@@ -287,20 +288,46 @@ export default class GoalScreen extends React.Component {
   }
 
 
+
+  displayBMIMessage(BMI) {
+    if (BMI < 18.5) {
+      return <Text style={styles.signupText}> Your current BMI is less than 18.5. You are currently underweight.</Text>;
+    } else if (BMI > 18.5 && BMI < 24.9) {
+      return <Text style={styles.signupText}> Your current BMI is between 18.5 and 24.9. You are currently a normal weight </Text>;
+    } else if (BMI > 24.9 && BMI < 29.9) {
+      return <Text style={styles.signupText}> Your current BMI is between 24.9 and 29.9 . You are currently a overweight </Text>;
+    } else if (BMI > 30) {
+      return <Text style={styles.signupText}> Your current BMI is over 30. You are currently a obese. </Text>;
+    }
+  };
+
+
   render() {
 
 
     const { navigation } = this.props;
     const username = navigation.getParam('username', 'NO-ID');
     const password = navigation.getParam('password', 'NO-ID');
+    const weight = navigation.getParam('weight', 'NO-ID');
+    const height = navigation.getParam('height', 'NO-ID');
+
+    // BMI = kg/m2
+    //weight is in KG, height is in CM so divide height by 100
+    const bmiHeight = height / 100;
+    const bmiHeightSq = bmiHeight * bmiHeight;
+    const BMI = weight / bmiHeightSq;
+
 
     return (
       <ScrollView>
         <View style={styles.container}>
 
           <Text style={styles.signupText3}>Your Goals</Text>
-          <Text style={styles.signupText}>Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum orem ipsum orem ipsum orem ipsum orem ipsum orem ipsum </Text>
-
+          <View style={styles.textBox2}>
+          <Text style={styles.signupText}> Your current BMI is: {BMI.toFixed(2)}</Text>
+          <View> {this.displayBMIMessage(BMI)}</View>
+          <Text style={styles.signupText}>Based on your current height and weight, we would reccommend you aim to burn calories weekly. If you have any underlying health problems, please first consult with your doctor before beginning any period of exercise.</Text>
+          </View>
           <Text style={styles.signupText3}>Calories you want to burn weekly</Text>
 
           <CheckBox
@@ -361,21 +388,23 @@ export default class GoalScreen extends React.Component {
           />
 
           <View style={styles.container2}>
+
+          <TouchableOpacity
+              style={styles.button}
+              onPress={() => { this.createAccount(username, password) }}>
+              <Text style={styles.buttonText}>COMPLETE SIGN UP{this.props.type}</Text>
+            </TouchableOpacity>
+
             <TouchableOpacity
               style={styles.button}
               onPress={() => this.props.navigation.navigate('Weight')}>
               }}>
             <Text style={styles.buttonText}>BACK{this.props.type}</Text>
             </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => { this.createAccount(username, password) }}>
-              <Text style={styles.buttonText}>COMPLETE SIGN UP{this.props.type}</Text>
-            </TouchableOpacity>
+            
           </View>
         </View>
-      </ScrollView>
+      </ScrollView >
 
     );
   }
@@ -421,7 +450,7 @@ const styles = StyleSheet.create({
   },
   signupText: {
     color: 'rgba(255,255,255,0.6)',
-    fontSize: 12
+    fontSize: 16
   },
   signupText2: {
     color: 'rgba(255,255,255,0.6)',
@@ -477,4 +506,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     borderColor: '#1C272A',
   },
+  textBox2: {
+    width: 320,
+  }
 });

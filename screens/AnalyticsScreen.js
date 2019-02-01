@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, Image, View, StyleSheet} from 'react-native';
 
 export default class SettingsScreen extends React.Component {
   static navigationOptions = {
@@ -9,9 +9,9 @@ export default class SettingsScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.signupTextCont}>
-          <Text style={styles.signupText}>Analytics Screen</Text>
-        </View>
+       <Image style={{ width: 260, height: 160 }}
+          source={require('../assets/images/icon3.png')} />
+          <Text style={styles.titleText}>Analytics</Text>
       </View>
 
     );
@@ -40,5 +40,11 @@ const styles = StyleSheet.create({
   signupText: {
     color: 'rgba(255,255,255,0.6)',
     fontSize: 16
+  },
+  titleText: {
+    color: 'rgba(255,255,255,0.6)',
+    fontSize: 32,
+    top: -35,
+    borderColor: 'black'
   },
 });

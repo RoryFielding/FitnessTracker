@@ -1,6 +1,6 @@
 import Expo from 'expo';
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, TouchableHighlight, TouchableOpacity, ListView } from 'react-native';
+import { Text, Image, View, StyleSheet, TouchableHighlight, TouchableOpacity, ListView } from 'react-native';
 import { Location, Permissions } from 'expo';
 import pick from 'object.pick';
 import TimeFormatter from 'minutes-seconds-milliseconds';
@@ -36,15 +36,27 @@ export default class App extends Component {
       distanceTravelled: 0,
       changeCount: 0,
       speed: 0,
-      calBurned: 0,
+      kCal: 0,
     };
   }
 
 
   componentWillMount() {
     Location.watchPositionAsync(GEOLOCATION_OPTIONS, this.locationChanged);
-
+    this._getLocationAsync();
   }
+
+  _getLocationAsync = async () => {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== 'granted') {
+      this.setState({
+        errorMessage: 'Permission to access location was denied',
+      });
+    }
+
+    let location = await Location.getCurrentPositionAsync({});
+    this.setState({ location });
+  };
 
   calcDistance = newLatLng => {
     distanceTravelled = this.state.distanceTravelled;
@@ -122,12 +134,13 @@ export default class App extends Component {
     //.75 x your weight (in lbs.)
 
     //total cal burned in a km
-    var kCal = (0.75 * 65)/1000 
+    var kCal = (0.75 * 65) / 1000
     var mTravlled = (distanceTravelled * 1000)
 
     kCal = mTravlled * kCal;
-    this.setState({ kCal: kCal })
-
+    if (kCal > 0) {
+      this.setState({ kCal: kCal })
+    }
   }
 
   _renderKcal() {
@@ -194,6 +207,13 @@ export default class App extends Component {
         <TouchableHighlight style={styles.rowWrapper} underlayColor='#777' onPress={this.handleLapReset.bind(this)} style={styles.buttonClick}>
           <Text>{(this.state.mainTimerStart && !this.state.isRunning) ? 'Reset' : 'Finish'}</Text>
         </TouchableHighlight>
+      </View>
+    );
+  }
+
+  _renderBackground() {
+    return (
+      <View styles={styles.mapBackground}>
       </View>
     );
   }
@@ -265,6 +285,15 @@ export default class App extends Component {
             strokeWidth={6}
           />
         </Expo.MapView>
+        <View style={styles.map}>
+          <View style={{ flex: 1 }}>
+            <View style={{ flex: 2, backgroundColor: '#1C272A' }} >
+              <Image style={{ width: 260, height: 160, marginHorizontal: 60, marginTop: -40 }}
+                source={require('../assets/images/icon3.png')} />
+            </View>
+            <View style={{ flex: 3 }} />
+          </View>
+        </View>
         <View style={styles.stats}>
           {this._renderTimers()}
           <View style={styles.buttonContainer}>
@@ -368,9 +397,11 @@ const styles = StyleSheet.create({
   },
   buttonWrapper: {
     paddingVertical: 25,
-    bottom: 0,
+    bottom: -20,
     justifyContent: 'center',
     flexDirection: 'row',
+    backgroundColor: '#1C272A', 
+    borderRadius: 20,
   },
   rowWrapper: {
     flexDirection: 'row',
@@ -402,9 +433,20 @@ const styles = StyleSheet.create({
     width: 180
   },
   stats: {
-    marginVertical: 20,
+    marginVertical: -30,
     height: 80,
     width: 180,
-    bottom: 450
+    bottom: 370,
+  },
+  mapBackground1: {
+    flex: 1,
+  },
+  mapBackground2: {
+    flex: 2,
+    backgroundColor: 'red',
+  },
+  mapBackground3: {
+    flex: 3,
+    backgroundColor: 'blue',
   }
 });
