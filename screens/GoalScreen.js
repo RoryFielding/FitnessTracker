@@ -319,8 +319,8 @@ export default class GoalScreen extends React.Component {
 
 
     return (
-      <ScrollView>
-        <View style={styles.container}>
+      <ScrollView style={styles.container}>
+        <View style={styles.container2}>
 
           <Text style={styles.signupText3}>Your Goals</Text>
           <View style={styles.textBox2}>
@@ -427,8 +427,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#1C272A',
     flexGrow: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   container2: {
     backgroundColor: '#1C272A',

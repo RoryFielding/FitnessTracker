@@ -14,6 +14,10 @@ import DatePicker from 'react-native-datepicker';
 
 export default class SignUpScreen extends Component {
 
+    static navigationOptions = {
+        header: null,
+      };
+
     constructor(props) {
         super(props);
         this.state = {
@@ -75,8 +79,8 @@ export default class SignUpScreen extends Component {
         const state = this.state;
 
         return (
-            <ScrollView
-                contentContainerStyle={styles.container}>
+            <ScrollView style={styles.container}>
+            <View style={styles.container2}>
                 <Image style={{ width: 260, height: 160 }}
                     source={require('../assets/images/icon3.png')} />
                 <TextInput style={styles.inputBox}
@@ -193,6 +197,7 @@ export default class SignUpScreen extends Component {
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('AuthLoading')}>
                         <Text style={styles.signupButton}> Log In</Text></TouchableOpacity>
                 </View>
+                </View>
             </ScrollView>
         )
     }
@@ -211,9 +216,13 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#1C272A',
         flexGrow: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
     },
+    container2: {
+        backgroundColor: '#1C272A',
+        flexGrow: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+      },
     checkBox: {
         backgroundColor: '#1C272A',
         width: 125,
