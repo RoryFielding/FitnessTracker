@@ -8,6 +8,7 @@ import AchievementsScreen from '../screens/AchievementsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import RecordScreen from '../screens/RecordScreen';
 import AnalyticsScreen from '../screens/AnalyticsScreen';
+import ActivityScreen from '../screens/ActivityCompleteScreen';
 
 
 const HomeStack = createStackNavigator({
@@ -44,6 +45,7 @@ AchievementsStack.navigationOptions = {
 
 const RecordStack = createStackNavigator({
   Record: RecordScreen,
+  Activity: ActivityScreen
 })
 
 RecordStack.navigationOptions = {

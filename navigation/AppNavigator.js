@@ -6,6 +6,8 @@ import ConsentScreen from '../screens/ConsentScreen';
 import WeightScreen from '../screens/WeightScreen';
 import HeightScreen from '../screens/HeightScreen';
 import GoalScreen from '../screens/GoalScreen';
+import ActivityCompleteScreen from '../screens/ActivityCompleteScreen';
+
 
 export default createSwitchNavigator(
   {
@@ -17,6 +19,7 @@ export default createSwitchNavigator(
     Weight: WeightScreen,
     Height: HeightScreen,
     Goal: GoalScreen,
+    ActivityComplete: ActivityCompleteScreen,
     Main: MainTabNavigator,
   },
   {
@@ -25,6 +28,7 @@ export default createSwitchNavigator(
     WeightRoute: 'Weight',
     HeightRoute: 'Height',
     GoalRoute: 'Goal', 
+    ActivityRoute: 'ActivityComplete',
     secondRoute: 'Main'
   }
 );

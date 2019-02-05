@@ -211,6 +211,7 @@ export default class App extends Component {
     );
   }
 
+
   _renderBackground() {
     return (
       <View styles={styles.mapBackground}>
@@ -247,7 +248,6 @@ export default class App extends Component {
 
   handleLapReset() {
     let { isRunning, mainTimerStart } = this.state;
-
     //Reset button clicked
     if (mainTimerStart && !isRunning) {
       laps: [],
@@ -259,10 +259,13 @@ export default class App extends Component {
         });
     }
 
-    //Lap button clicked do nothing
+    if(isRunning){
+    this.props.navigation.navigate('Activity');
+    }
   }
 
   render() {
+    const { navigation } = this.props;
     return (
       <View style={styles.container}>
         <Expo.MapView
@@ -305,6 +308,21 @@ export default class App extends Component {
         <View style={styles.buttonWrapper}>
           {this._renderStartButton()}
           {this._renderFinishButton()}
+
+{/* 
+          <View styles={styles.rowWrapper}>
+          <TouchableOpacity
+            style={styles.rowWrapper}
+            underlayColor='#777'
+            onPress={() => {
+              this.props.navigation.navigate('Activity');
+              console.log('hello');
+            }}>
+            <Text style={styles.buttonText}>FINISH{this.props.type}</Text>
+          </TouchableOpacity>
+      </View> */}
+
+          
         </View>
       </View>
     );
