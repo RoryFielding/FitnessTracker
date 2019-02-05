@@ -1,6 +1,6 @@
 import Expo from 'expo';
 import React, { Component } from 'react';
-import { Text, Image, View, StyleSheet, TouchableHighlight, TouchableOpacity, ListView } from 'react-native';
+import { Text, Image, View, StyleSheet, TouchableHighlight, TouchableOpacity, ListView, Dimensions } from 'react-native';
 import { Location, Permissions } from 'expo';
 import pick from 'object.pick';
 import TimeFormatter from 'minutes-seconds-milliseconds';
@@ -37,6 +37,8 @@ export default class App extends Component {
       changeCount: 0,
       speed: 0,
       kCal: 0,
+      latDelta: 0.005*2,
+      lngDelta: 0.012*2,
     };
   }
 
@@ -276,13 +278,21 @@ export default class App extends Component {
   }
 
   render() {
+
     const { navigation } = this.props;
+
+
     return (
       <View style={styles.container}>
         <Expo.MapView
-          style={styles.map}
+          style={styles.mapView}
           showsUserLocation={true}
-          region={this.state.region}
+          region={{
+            latitude: this.state.location.coords.latitude,
+            longitude: this.state.location.coords.longitude,
+            latitudeDelta: this.state.latDelta,
+            longitudeDelta: this.state.lngDelta
+          }}
         >
 
           <Expo.MapView.Polyline
@@ -319,21 +329,6 @@ export default class App extends Component {
         <View style={styles.buttonWrapper}>
           {this._renderStartButton()}
           {this._renderFinishButton()}
-
-{/* 
-          <View styles={styles.rowWrapper}>
-          <TouchableOpacity
-            style={styles.rowWrapper}
-            underlayColor='#777'
-            onPress={() => {
-              this.props.navigation.navigate('Activity');
-              console.log('hello');
-            }}>
-            <Text style={styles.buttonText}>FINISH{this.props.type}</Text>
-          </TouchableOpacity>
-      </View> */}
-
-          
         </View>
       </View>
     );
@@ -349,7 +344,11 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   map: {
-    ...StyleSheet.absoluteFillObject
+    ...StyleSheet.absoluteFillObject,
+  },
+  mapView: {
+    ...StyleSheet.absoluteFillObject,
+    top: 160
   },
   signupButton: {
     color: '#4CA4B0',
