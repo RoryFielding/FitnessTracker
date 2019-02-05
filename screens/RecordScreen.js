@@ -256,11 +256,22 @@ export default class App extends Component {
           LapTimerStart: null,
           mainTimer: 0,
           LapTimer: 0,
+          kCal: 0,
+          speed: 0,
+          distanceTravelled: 0,
+          routeCoordinates: [],
+          lineCoordinates: [],
+          prevLatLng: {},
         });
     }
 
     if(isRunning){
-    this.props.navigation.navigate('Activity');
+    this.props.navigation.navigate('Activity', {
+        distanceTravelled: this.state.distanceTravelled,
+        speed: this.state.speed,
+        kCal: this.state.kCal,
+        mainTimer: this.state.mainTimer
+    });
     }
   }
 

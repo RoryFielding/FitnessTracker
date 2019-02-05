@@ -1,5 +1,6 @@
 import React from 'react';
-import { ScrollView, View, Image, Text, StyleSheet } from 'react-native';
+import { View, Image, Text, StyleSheet } from 'react-native';
+import TimeFormatter from 'minutes-seconds-milliseconds';
 
 export default class AchievementsScreen extends React.Component {
   static navigationOptions = {
@@ -10,19 +11,57 @@ export default class AchievementsScreen extends React.Component {
     super(props);
 
     this.state = {
-      
+
     }
   }
 
   render() {
-    const state = this.state;
+
+    const { navigation } = this.props;
+    const distanceTravelled = navigation.getParam('distanceTravelled', 'NO-ID');
+    const speed = navigation.getParam('speed', 'NO-ID');
+    const kCal = navigation.getParam('kCal', 'NO-ID');
+    const mainTimer = navigation.getParam('mainTimer', 'NO-ID');
+
+
     return (
-<View style={styles.container} >
+      <View style={styles.container}>
+       <Image style={{ width: 260, height: 160, top: -48 }}
+          source={require('../assets/images/icon3.png')} />
         <Text style={styles.title2Text}>
-            Activity Complete
+          Completed Activity Summary
           </Text>
-         
+
+        <Text style={styles.signupText}>
+          Date/Time: return current timestamp
+          </Text>
+
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+          <Text style={styles.signupText}>
+            Distance:  {parseFloat(distanceTravelled.toFixed(2))} km
+          </Text>
+          <Text style={styles.signupText}>
+            Speed: {parseFloat(speed.toFixed(2))} kmph
+          </Text>
         </View>
+
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+          <Text style={styles.signupText}>
+            Time: {TimeFormatter(mainTimer)}
+          </Text>
+          <Text style={styles.signupText}>
+            kCal Burned: {parseFloat(kCal.toFixed(2))}
+          </Text>
+        </View>
+
+        <Text style={styles.signupText}>
+          Notes:
+          </Text>
+
+        <Text style={styles.signupText}>
+          Route Image Snapsnot here
+          </Text>
+      </View>
 
     );
   }
