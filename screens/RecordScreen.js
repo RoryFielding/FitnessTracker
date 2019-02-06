@@ -37,8 +37,9 @@ export default class App extends Component {
       changeCount: 0,
       speed: 0,
       kCal: 0,
-      latDelta: 0.005*2,
-      lngDelta: 0.012*2,
+      latDelta: 0.005 * 2,
+      lngDelta: 0.012 * 2,
+      mapSnapshot: ''
     };
   }
 
@@ -248,7 +249,7 @@ export default class App extends Component {
     }, 30);
   }
 
-  handleLapReset() {
+  async handleLapReset()  {
     let { isRunning, mainTimerStart } = this.state;
     //Reset button clicked
     if (mainTimerStart && !isRunning) {
@@ -267,21 +268,35 @@ export default class App extends Component {
         });
     }
 
-    if(isRunning){
-    this.props.navigation.navigate('Activity', {
+    if (isRunning) {
+    // 'takeSnapshot' takes a config object with the
+    // following options
+    const snapshot = this.map.takeSnapshot({
+      width: 300,      // optional, when omitted the view-width is used
+      height: 300,     // optional, when omitted the view-height is used
+      format: 'png',   // image formats: 'png', 'jpg' (default: 'png')
+      quality: 0.8,    // image quality: 0..1 (only relevant for jpg, default: 1)
+      result: 'file'   // result types: 'file', 'base64' (default: 'file')
+    });
+    snapshot.then((uri) => {
+      this.setState({ mapSnapshot: uri });
+    });
+    snapshot.then((uri => {
+      this.props.navigation.navigate('Activity', {
         distanceTravelled: this.state.distanceTravelled,
         speed: this.state.speed,
         kCal: this.state.kCal,
-        mainTimer: this.state.mainTimer
-    });
-    }
+        mainTimer: this.state.mainTimer,
+        mapSnapshot: this.state.mapSnapshot
+      });
+    }))
+      };
   }
+
 
   render() {
 
     const { navigation } = this.props;
-
-
     return (
       <View style={styles.container}>
         <Expo.MapView
@@ -293,6 +308,7 @@ export default class App extends Component {
             latitudeDelta: this.state.latDelta,
             longitudeDelta: this.state.lngDelta
           }}
+          ref={map => { this.map = map }}
         >
 
           <Expo.MapView.Polyline
@@ -428,7 +444,7 @@ const styles = StyleSheet.create({
     bottom: -20,
     justifyContent: 'center',
     flexDirection: 'row',
-    backgroundColor: '#1C272A', 
+    backgroundColor: '#1C272A',
     borderRadius: 20,
   },
   rowWrapper: {

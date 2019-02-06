@@ -23,8 +23,7 @@ export default class AchievementsScreen extends React.Component {
   render() {
     const state = this.state;
     return (
-      <ScrollView
-        contentContainerStyle={styles.container}>
+      <View style={styles.container}>
         <Image style={{ width: 260, height: 160 }}
           source={require('../assets/images/icon3.png')} />
         <Text style={styles.titleText}>Achievements</Text>
@@ -58,8 +57,7 @@ export default class AchievementsScreen extends React.Component {
           Calories Burned:  {this.state.overCal} kCal
         </Text>
         </View>
-      </ScrollView>
-
+        </View>
     );
   }
 }
