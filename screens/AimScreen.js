@@ -111,7 +111,7 @@ export default class AimScreen extends Component {
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => {
-                        this.props.navigation.navigate('Goal', {
+                        this.props.navigation.navigate('Physical', {
                             username: username,
                             password: password,
                             age: age,
@@ -135,14 +135,6 @@ export default class AimScreen extends Component {
                 </TouchableOpacity>
             </View>
         )
-    }
-
-    createAccount(e) {
-        // fire.auth().createUserWithEmailAndPassword(this.state.username, this.state.password).then((u) => {
-        // }).catch((error) => {
-        //     alert(error);
-        // });
-        this.props.navigation.navigate('Consent');
     }
 }
 

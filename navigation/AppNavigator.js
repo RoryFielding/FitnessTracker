@@ -7,9 +7,8 @@ import WeightScreen from '../screens/WeightScreen';
 import HeightScreen from '../screens/HeightScreen';
 import GoalScreen from '../screens/GoalScreen';
 import ActivityCompleteScreen from '../screens/ActivityCompleteScreen';
-import AchievementsScreen from '../screens/AchievementsScreen';
 import AimScreen from '../screens/AimScreen';
-
+import PhysicalIntensityScreen from '../screens/PhysicalIntensityScreen';
 
 export default createSwitchNavigator(
   {
@@ -21,6 +20,7 @@ export default createSwitchNavigator(
     Weight: WeightScreen,
     Height: HeightScreen,
     Aim: AimScreen,
+    Physical: PhysicalIntensityScreen,
     Goal: GoalScreen,
     ActivityComplete: ActivityCompleteScreen,
     Main: MainTabNavigator,
@@ -31,6 +31,7 @@ export default createSwitchNavigator(
     WeightRoute: 'Weight',
     HeightRoute: 'Height',
     AimRoute: 'Aim',
+    PhysicalRoute: 'Physical',
     GoalRoute: 'Goal', 
     ActivityRoute: 'ActivityComplete',
     secondRoute: 'Main'

@@ -296,6 +296,10 @@ export default class GoalScreen extends React.Component {
     const gainChecked = navigation.getParam('gainChecked', 'NO-ID');
     const mchecked = navigation.getParam('mchecked' ,'NO-ID');
     const fchecked = navigation.getParam('fchecked' ,'NO-ID');
+    const sedentary = navigation.getParam('sedentary' ,'NO-ID');
+    const lowActive = navigation.getParam('lowActive' ,'NO-ID');
+    const active = navigation.getParam('active' ,'NO-ID');
+    const veryActive = navigation.getParam('veryActive' ,'NO-ID');
 
     //If user wants to lose weight
     if (loseChecked){
@@ -424,21 +428,19 @@ export default class GoalScreen extends React.Component {
           />
 
           <View style={styles.container2}>
-
           <TouchableOpacity
               style={styles.button}
               onPress={() => { this.createAccount(username, password) }}>
               <Text style={styles.buttonText}>COMPLETE SIGN UP{this.props.type}</Text>
             </TouchableOpacity>
-
             <TouchableOpacity
               style={styles.button}
-              onPress={() => this.props.navigation.navigate('Aim')}>
+              onPress={() => this.props.navigation.navigate('Physical')}>
               }}>
             <Text style={styles.buttonText}>BACK{this.props.type}</Text>
-            </TouchableOpacity>
-            
+            </TouchableOpacity>  
           </View>
+
         </View>
       </ScrollView >
 
