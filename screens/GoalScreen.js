@@ -397,7 +397,7 @@ export default class GoalScreen extends React.Component {
 
             <TouchableOpacity
               style={styles.button}
-              onPress={() => this.props.navigation.navigate('Weight')}>
+              onPress={() => this.props.navigation.navigate('Aim')}>
               }}>
             <Text style={styles.buttonText}>BACK{this.props.type}</Text>
             </TouchableOpacity>

@@ -48,7 +48,7 @@ export default class HeightScreen extends React.Component {
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
-              this.props.navigation.navigate('Goal', {
+              this.props.navigation.navigate('Aim', {
                 username: username,
                 password: password,
                 weight: weight,
