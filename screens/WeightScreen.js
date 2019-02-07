@@ -22,6 +22,10 @@ setWeight(weight) {
     const { navigation } = this.props;
     const username = navigation.getParam('username', 'NO-ID');
     const password = navigation.getParam('password', 'NO-ID');
+    const age = navigation.getParam('age', 'NO-ID');
+    const mchecked = navigation.getParam('mchecked' ,'NO-ID');
+    const fchecked = navigation.getParam('fchecked' ,'NO-ID');
+    
     return (
 
       <View style={styles.container}>
@@ -49,6 +53,9 @@ setWeight(weight) {
               this.props.navigation.navigate('Height', {
                 username: username,
                 password: password,
+                age: age,
+                mchecked: mchecked,
+                fchecked: fchecked,
                 weight: this.state.weight
               })
             }}>

@@ -22,6 +22,9 @@ export default class HeightScreen extends React.Component {
     const { navigation } = this.props;
     const username = navigation.getParam('username', 'NO-ID');
     const password = navigation.getParam('password', 'NO-ID');
+    const age = navigation.getParam('age', 'NO-ID');
+    const mchecked = navigation.getParam('mchecked' ,'NO-ID');
+    const fchecked = navigation.getParam('fchecked' ,'NO-ID');
     const weight = navigation.getParam('weight', 'NO-ID');
 
     
@@ -51,6 +54,9 @@ export default class HeightScreen extends React.Component {
               this.props.navigation.navigate('Aim', {
                 username: username,
                 password: password,
+                age: age,
+                mchecked: mchecked,
+                fchecked: fchecked,
                 weight: weight,
                 height: this.state.height
               })

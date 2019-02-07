@@ -32,6 +32,7 @@ export default class SignUpScreen extends Component {
             loading: false,
             username: "",
             password: "",
+            age: null
         };
     }
 
@@ -72,6 +73,18 @@ export default class SignUpScreen extends Component {
 
     setPassword2(password) {
         this.setState({ password2: password })
+    }
+    
+    setAgeDate(date) {
+        this.setState({ date: date })
+        var today = new Date();
+        var birthDate = new Date(date);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        this.setState({age: age})
     }
 
     render() {
@@ -169,7 +182,7 @@ export default class SignUpScreen extends Component {
                             marginLeft: 36,
                         },
                     }}
-                    onDateChange={(date) => { this.setState({ date: date }) }}
+                    onDateChange={(date) => { this.setAgeDate(date) }}
                 />
                 <View style={styles.tcView}>
                     <Text style={styles.TcTextCont}>I have read and accept the</Text>
@@ -188,6 +201,9 @@ export default class SignUpScreen extends Component {
                         this.props.navigation.navigate('Consent' , {
                         username: this.state.username,
                         password: this.state.password,
+                        age: this.state.age,
+                        mchecked: this.state.mchecked,
+                        fchecked: this.state.fchecked
                     });
                     }}>
                     <Text style={styles.buttonText}>CREATE ACCOUNT{this.props.type}</Text>
@@ -200,14 +216,6 @@ export default class SignUpScreen extends Component {
                 </View>
             </ScrollView>
         )
-    }
-
-    createAccount(e) {
-        // fire.auth().createUserWithEmailAndPassword(this.state.username, this.state.password).then((u) => {
-        // }).catch((error) => {
-        //     alert(error);
-        // });
-        this.props.navigation.navigate('Consent');
     }
 }
 

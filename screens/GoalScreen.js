@@ -289,16 +289,45 @@ export default class GoalScreen extends React.Component {
 
 
 
-  displayBMIMessage(BMI) {
-    if (BMI < 18.5) {
-      return <Text style={styles.signupText}> Your current BMI is less than 18.5. You are currently underweight.</Text>;
-    } else if (BMI > 18.5 && BMI < 24.9) {
-      return <Text style={styles.signupText}> Your current BMI is between 18.5 and 24.9. You are currently a normal weight </Text>;
-    } else if (BMI > 24.9 && BMI < 29.9) {
-      return <Text style={styles.signupText}> Your current BMI is between 24.9 and 29.9 . You are currently a overweight </Text>;
-    } else if (BMI > 30) {
-      return <Text style={styles.signupText}> Your current BMI is over 30. You are currently a obese. </Text>;
+  displayBMIMessage(BMI, age) {
+    const { navigation } = this.props;
+    const maintainChecked = navigation.getParam('maintainChecked', 'NO-ID');
+    const loseChecked = navigation.getParam('loseChecked', 'NO-ID');
+    const gainChecked = navigation.getParam('gainChecked', 'NO-ID');
+    const mchecked = navigation.getParam('mchecked' ,'NO-ID');
+    const fchecked = navigation.getParam('fchecked' ,'NO-ID');
+
+    //If user wants to lose weight
+    if (loseChecked){
+      //If user is male
+      if(mchecked){
+        if(age < 18){
+          return <Text style={styles.signupText}> Male loseChecked baby </Text>;
+        }
+        if(age >= 18 && age < 45){
+
+        }
+        if(age > 45){
+
+        }
+        
+      }
+      //If user is female
+      else return <Text style={styles.signupText}> Female loseChecked baby {BMI}{age}</Text>;
     }
+
+    // if (BMI < 18.5) {
+    //   return <Text style={styles.signupText}> Your BMI is less than 18.5. 
+    //   You are currently underweight.</Text>;
+    // } else if (BMI > 18.5 && BMI < 24.9) {
+    //   return <Text style={styles.signupText}> Your BMI is between 18.5 and 24.9. 
+    //   You are currently a normal weight </Text>;
+    // } else if (BMI > 24.9 && BMI < 29.9) {
+    //   return <Text style={styles.signupText}> Your BMI is between 24.9 and 29.9. 
+    //   You are currently a overweight </Text>;
+    // } else if (BMI > 30) {
+    //   return <Text style={styles.signupText}> Your BMI is over 30. You are currently obese. </Text>;
+    // }
   };
 
 
@@ -308,8 +337,12 @@ export default class GoalScreen extends React.Component {
     const { navigation } = this.props;
     const username = navigation.getParam('username', 'NO-ID');
     const password = navigation.getParam('password', 'NO-ID');
+    const age = navigation.getParam('age', 'NO-ID');
     const weight = navigation.getParam('weight', 'NO-ID');
     const height = navigation.getParam('height', 'NO-ID');
+    const maintainChecked = navigation.getParam('maintainChecked', 'NO-ID');
+    const loseChecked = navigation.getParam('loseChecked', 'NO-ID');
+    const gainChecked = navigation.getParam('gainChecked', 'NO-ID');
 
     // BMI = kg/m2
     //weight is in KG, height is in CM so divide height by 100
@@ -325,8 +358,11 @@ export default class GoalScreen extends React.Component {
           <Text style={styles.signupText3}>Your Goals</Text>
           <View style={styles.textBox2}>
           <Text style={styles.signupText}> Your current BMI is: {BMI.toFixed(2)}</Text>
-          <View> {this.displayBMIMessage(BMI)}</View>
-          <Text style={styles.signupText}>Based on your current height and weight, we would reccommend you aim to burn calories weekly. If you have any underlying health problems, please first consult with your doctor before beginning any period of exercise.</Text>
+          <View> {this.displayBMIMessage(BMI, age, maintainChecked, loseChecked, gainChecked)}</View>
+          <Text style={styles.signupText}>Based on your current weight, height & age RunTracker
+          reccommends you aim to burn x calories weekly. If you have any underlying 
+          health problems, please first consult with your doctor before beginning any 
+          period of exercise.</Text>
           </View>
           <Text style={styles.signupText3}>Calories you want to burn weekly</Text>
 
@@ -335,7 +371,7 @@ export default class GoalScreen extends React.Component {
             containerStyle={styles.checkBox}
             checked={this.state.fhbox}
             textStyle={styles.signupText}
-            onPress={() => this.checkFhBox()}
+            onPress={() => this.checkFhBox(loseChecked)}
           />
           <CheckBox
             title='1000'

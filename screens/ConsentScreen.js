@@ -41,6 +41,10 @@ checkHealthBox() {
     const { navigation } = this.props;
     const username = navigation.getParam('username', 'NO-ID');
     const password = navigation.getParam('password', 'NO-ID');
+    const age = navigation.getParam('age' ,'NO-ID');
+    const mchecked = navigation.getParam('mchecked' ,'NO-ID');
+    const fchecked = navigation.getParam('fchecked' ,'NO-ID');
+
     return (
       <ScrollView style={styles.container}>
         <View  style={styles.container2}>
@@ -109,6 +113,9 @@ checkHealthBox() {
               this.props.navigation.navigate('Weight', {
                 username: username,
                 password: password,
+                age: age,
+                mchecked: mchecked,
+                fchecked: fchecked
               })
             }}>
             <Text style={styles.buttonText}>NEXT{this.props.type}</Text>

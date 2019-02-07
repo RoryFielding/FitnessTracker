@@ -41,6 +41,7 @@ export default class AimScreen extends Component {
         if (gainChecked === true) {
             this.setState({ gainChecked: !this.state.gainChecked })
         }
+
     }
 
     checkMaintainBox() {
@@ -61,7 +62,7 @@ export default class AimScreen extends Component {
         gainChecked = this.state.gainChecked;
         loseChecked = this.state.loseChecked;
         maintainChecked = this.state.maintainChecked;
-        
+
         this.setState({ gainChecked: !this.state.gainChecked })
         if (loseChecked === true) {
             this.setState({ loseChecked: !this.state.loseChecked })
@@ -75,6 +76,9 @@ export default class AimScreen extends Component {
         const { navigation } = this.props;
         const username = navigation.getParam('username', 'NO-ID');
         const password = navigation.getParam('password', 'NO-ID');
+        const age = navigation.getParam('age', 'NO-ID');
+        const mchecked = navigation.getParam('mchecked' ,'NO-ID');
+        const fchecked = navigation.getParam('fchecked' ,'NO-ID');
         const weight = navigation.getParam('weight', 'NO-ID');
         const height = navigation.getParam('height', 'NO-ID');
 
@@ -110,8 +114,14 @@ export default class AimScreen extends Component {
                         this.props.navigation.navigate('Goal', {
                             username: username,
                             password: password,
+                            age: age,
+                            mchecked: mchecked,
+                            fchecked: fchecked,
                             weight: weight,
-                            height: height
+                            height: height,
+                            maintainChecked: this.state.maintainChecked,
+                            loseChecked: this.state.loseChecked,
+                            gainChecked: this.state.gainChecked
                         });
                     }}>
                     <Text style={styles.buttonText}>NEXT{this.props.type}</Text>
