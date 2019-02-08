@@ -19,7 +19,8 @@ export default class GoalScreen extends React.Component {
       threekbox: false,
       threeptfbox: false,
       fourkbox: false,
-      BMI: ""
+      BMI: "",
+      TEE: ""
     }
   }
 
@@ -289,49 +290,79 @@ export default class GoalScreen extends React.Component {
 
 
 
-  displayBMIMessage(BMI, age) {
+  displayTEEMessage(age, weight, height) {
     const { navigation } = this.props;
-    const maintainChecked = navigation.getParam('maintainChecked', 'NO-ID');
-    const loseChecked = navigation.getParam('loseChecked', 'NO-ID');
-    const gainChecked = navigation.getParam('gainChecked', 'NO-ID');
-    const mchecked = navigation.getParam('mchecked' ,'NO-ID');
-    const fchecked = navigation.getParam('fchecked' ,'NO-ID');
-    const sedentary = navigation.getParam('sedentary' ,'NO-ID');
-    const lowActive = navigation.getParam('lowActive' ,'NO-ID');
-    const active = navigation.getParam('active' ,'NO-ID');
-    const veryActive = navigation.getParam('veryActive' ,'NO-ID');
+    
+    const mchecked = navigation.getParam('mchecked', 'NO-ID');
+    const sedentary = navigation.getParam('sedentary', 'NO-ID');
+    const lowActive = navigation.getParam('lowActive', 'NO-ID');
+    const active = navigation.getParam('active', 'NO-ID');
+    const veryActive = navigation.getParam('veryActive', 'NO-ID');
+    meterHeight = height/100;
+    let TEE = 0;
 
-    //If user wants to lose weight
-    if (loseChecked){
-      //If user is male
-      if(mchecked){
-        if(age < 18){
-          return <Text style={styles.signupText}> Male loseChecked baby </Text>;
-        }
-        if(age >= 18 && age < 45){
-
-        }
-        if(age > 45){
-
-        }
-        
+    //If user is male
+    if (mchecked) {
+      if (sedentary) {
+        //1.0
+        TEE = 864 - 9.72 * age + 1.0 * (14.2 * weight + 503 * meterHeight);
+        return <Text style={styles.signupText}>{parseFloat(TEE).toFixed(2)}</Text>;
+      }
+      if (lowActive) {
+        //1.12
+        TEE = 864 - 9.72 * age + 1.12 * (14.2 * weight + 503 * meterHeight);
+        return <Text style={styles.signupText}>{parseFloat(TEE).toFixed(2)}</Text>;
+      }
+      if (active) {
+        //1.27
+        TEE = 864 - 9.72 * age + 1.27 * (14.2 * weight + 503 * meterHeight);
+        return <Text style={styles.signupText}>{parseFloat(TEE).toFixed(2)}</Text>;
+      }
+      if (veryActive) {
+        //1.54
+        TEE = 864 - 9.72 * age + 1.54 * (14.2 * weight + 503 * meterHeight);
+        return <Text style={styles.signupText}>{parseFloat(TEE).toFixed(2)}</Text>;
       }
       //If user is female
-      else return <Text style={styles.signupText}> Female loseChecked baby {BMI}{age}</Text>;
+      else
+        if (sedentary) {
+          //1.0
+          TEE = 387 - 7.31 * age + 1.0 * (14.2 * weight + 503 * meterHeight)
+          return <Text style={styles.signupText}>{parseFloat(TEE).toFixed(2)}</Text>;
+        }
+      if (lowActive) {
+        //1.12
+        TEE = 387 - 7.31 * age + 1.12 * (14.2 * weight + 503 * meterHeight)
+        return <Text style={styles.signupText}>{parseFloat(TEE).toFixed(2)}</Text>;
+      }
+      if (active) {
+        //1.27
+        TEE = 387 - 7.31 * age + 1.27 * (14.2 * weight + 503 * meterHeight)
+        return <Text style={styles.signupText}>{parseFloat(TEE).toFixed(2)}</Text>;
+      }
+      if (veryActive) {
+        //1.54
+        TEE = 387 - 7.31 * age + 1.54 * (14.2 * weight + 503 * meterHeight)
+        return <Text style={styles.signupText}>{parseFloat(TEE).toFixed(2)}</Text>;
+      }
+      this.setState({ TEE: TEE });
     }
+  };
 
-    // if (BMI < 18.5) {
-    //   return <Text style={styles.signupText}> Your BMI is less than 18.5. 
-    //   You are currently underweight.</Text>;
-    // } else if (BMI > 18.5 && BMI < 24.9) {
-    //   return <Text style={styles.signupText}> Your BMI is between 18.5 and 24.9. 
-    //   You are currently a normal weight </Text>;
-    // } else if (BMI > 24.9 && BMI < 29.9) {
-    //   return <Text style={styles.signupText}> Your BMI is between 24.9 and 29.9. 
-    //   You are currently a overweight </Text>;
-    // } else if (BMI > 30) {
-    //   return <Text style={styles.signupText}> Your BMI is over 30. You are currently obese. </Text>;
-    // }
+  displayBMIMessage(BMI) {
+    if (BMI < 18.5) {
+      return <Text style={styles.signupText}> 0-18.5. 
+      You are currently underweight.</Text>;
+    } else if (BMI > 18.5 && BMI < 24.9) {
+      return <Text style={styles.signupText}> 18.5-24.9. 
+      You are currently a normal weight. </Text>;
+    } else if (BMI > 24.9 && BMI < 29.9) {
+      return <Text style={styles.signupText}> 24.9-29.9. 
+      You are currently overweight. </Text>;
+    } else if (BMI > 30) {
+      return <Text style={styles.signupText}> >30. 
+      You are currently obese. </Text>;
+    }
   };
 
 
@@ -344,9 +375,6 @@ export default class GoalScreen extends React.Component {
     const age = navigation.getParam('age', 'NO-ID');
     const weight = navigation.getParam('weight', 'NO-ID');
     const height = navigation.getParam('height', 'NO-ID');
-    const maintainChecked = navigation.getParam('maintainChecked', 'NO-ID');
-    const loseChecked = navigation.getParam('loseChecked', 'NO-ID');
-    const gainChecked = navigation.getParam('gainChecked', 'NO-ID');
 
     // BMI = kg/m2
     //weight is in KG, height is in CM so divide height by 100
@@ -361,12 +389,15 @@ export default class GoalScreen extends React.Component {
 
           <Text style={styles.signupText3}>Your Goals</Text>
           <View style={styles.textBox2}>
-          <Text style={styles.signupText}> Your current BMI is: {BMI.toFixed(2)}</Text>
-          <View> {this.displayBMIMessage(BMI, age, maintainChecked, loseChecked, gainChecked)}</View>
-          <Text style={styles.signupText}>Based on your current weight, height & age RunTracker
-          reccommends you aim to burn x calories weekly. If you have any underlying 
-          health problems, please first consult with your doctor before beginning any 
-          period of exercise.</Text>
+            <Text style={styles.signupText}>BMI: {BMI.toFixed(2)}</Text>
+            <Text style={styles.signupText}>You are in the BMI range: {this.displayBMIMessage(BMI)}</Text>
+            <Text style={styles.signupText}>Based on your current weight, height & age and lifestyle, Runtracker
+            has calculated your daily calorie needs to be {this.displayTEEMessage(age, weight, height)} kCal. </Text>
+            
+            
+            <Text style={styles.signupText}>If you have any underlying
+            health problems, please first consult with your doctor before beginning any
+            period of exercise.</Text>
           </View>
           <Text style={styles.signupText3}>Calories you want to burn weekly</Text>
 
@@ -375,7 +406,7 @@ export default class GoalScreen extends React.Component {
             containerStyle={styles.checkBox}
             checked={this.state.fhbox}
             textStyle={styles.signupText}
-            onPress={() => this.checkFhBox(loseChecked)}
+            onPress={() => this.checkFhBox()}
           />
           <CheckBox
             title='1000'
@@ -428,7 +459,7 @@ export default class GoalScreen extends React.Component {
           />
 
           <View style={styles.container2}>
-          <TouchableOpacity
+            <TouchableOpacity
               style={styles.button}
               onPress={() => { this.createAccount(username, password) }}>
               <Text style={styles.buttonText}>COMPLETE SIGN UP{this.props.type}</Text>
@@ -438,7 +469,7 @@ export default class GoalScreen extends React.Component {
               onPress={() => this.props.navigation.navigate('Physical')}>
               }}>
             <Text style={styles.buttonText}>BACK{this.props.type}</Text>
-            </TouchableOpacity>  
+            </TouchableOpacity>
           </View>
 
         </View>
