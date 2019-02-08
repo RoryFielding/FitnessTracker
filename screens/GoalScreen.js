@@ -17,8 +17,6 @@ export default class GoalScreen extends React.Component {
       twokbox: false,
       twoptfbox: false,
       threekbox: false,
-      threeptfbox: false,
-      fourkbox: false,
       BMI: "",
       TEE: ""
     }
@@ -31,8 +29,6 @@ export default class GoalScreen extends React.Component {
     twokbox = this.state.twokbox;
     twoptfbox = this.state.twoptfbox;
     threekbox = this.state.threekbox;
-    threeptfbox = this.state.threeptfbox;
-    fourkbox = this.state.fourkbox;
     this.setState({ fhbox: !this.state.fhbox })
     if (onekbox === true) {
       this.setState({ onekbox: !this.state.onekbox })
@@ -49,12 +45,6 @@ export default class GoalScreen extends React.Component {
     if (threekbox === true) {
       this.setState({ threekbox: !this.state.threekbox })
     }
-    if (threeptfbox === true) {
-      this.setState({ threeptfbox: !this.state.threeptfbox })
-    }
-    if (fourkbox === true) {
-      this.setState({ fourkbox: !this.state.fourkbox })
-    }
   }
 
   checkOnekBox() {
@@ -64,8 +54,6 @@ export default class GoalScreen extends React.Component {
     twokbox = this.state.twokbox;
     twoptfbox = this.state.twoptfbox;
     threekbox = this.state.threekbox;
-    threeptfbox = this.state.threeptfbox;
-    fourkbox = this.state.fourkbox;
     this.setState({ onekbox: !this.state.onekbox })
     if (fhbox === true) {
       this.setState({ fhbox: !this.state.fhbox })
@@ -82,12 +70,6 @@ export default class GoalScreen extends React.Component {
     if (threekbox === true) {
       this.setState({ threekbox: !this.state.threekbox })
     }
-    if (threeptfbox === true) {
-      this.setState({ threeptfbox: !this.state.threeptfbox })
-    }
-    if (fourkbox === true) {
-      this.setState({ fourkbox: !this.state.fourkbox })
-    }
   }
 
   checkOneptfBox() {
@@ -97,8 +79,6 @@ export default class GoalScreen extends React.Component {
     twokbox = this.state.twokbox;
     twoptfbox = this.state.twoptfbox;
     threekbox = this.state.threekbox;
-    threeptfbox = this.state.threeptfbox;
-    fourkbox = this.state.fourkbox;
     this.setState({ oneptfkbox: !this.state.oneptfkbox })
     if (onekbox === true) {
       this.setState({ onekbox: !this.state.onekbox })
@@ -114,13 +94,7 @@ export default class GoalScreen extends React.Component {
     }
     if (threekbox === true) {
       this.setState({ threekbox: !this.state.threekbox })
-    }
-    if (threeptfbox === true) {
-      this.setState({ threeptfbox: !this.state.threeptfbox })
-    }
-    if (fourkbox === true) {
-      this.setState({ fourkbox: !this.state.fourkbox })
-    }
+      }
   }
 
   checkTwokBox() {
@@ -130,8 +104,6 @@ export default class GoalScreen extends React.Component {
     twokbox = this.state.twokbox;
     twoptfbox = this.state.twoptfbox;
     threekbox = this.state.threekbox;
-    threeptfbox = this.state.threeptfbox;
-    fourkbox = this.state.fourkbox;
     this.setState({ twokbox: !this.state.twokbox })
     if (onekbox === true) {
       this.setState({ onekbox: !this.state.onekbox })
@@ -147,12 +119,6 @@ export default class GoalScreen extends React.Component {
     }
     if (threekbox === true) {
       this.setState({ threekbox: !this.state.threekbox })
-    }
-    if (threeptfbox === true) {
-      this.setState({ threeptfbox: !this.state.threeptfbox })
-    }
-    if (fourkbox === true) {
-      this.setState({ fourkbox: !this.state.fourkbox })
     }
   }
 
@@ -180,13 +146,7 @@ export default class GoalScreen extends React.Component {
     }
     if (threekbox === true) {
       this.setState({ threekbox: !this.state.threekbox })
-    }
-    if (threeptfbox === true) {
-      this.setState({ threeptfbox: !this.state.threeptfbox })
-    }
-    if (fourkbox === true) {
-      this.setState({ fourkbox: !this.state.fourkbox })
-    }
+        }
   }
 
   checkThreekBox() {
@@ -196,8 +156,6 @@ export default class GoalScreen extends React.Component {
     twokbox = this.state.twokbox;
     twoptfbox = this.state.twoptfbox;
     threekbox = this.state.threekbox;
-    threeptfbox = this.state.threeptfbox;
-    fourkbox = this.state.fourkbox;
     this.setState({ threekbox: !this.state.threekbox })
     if (onekbox === true) {
       this.setState({ onekbox: !this.state.onekbox })
@@ -210,78 +168,6 @@ export default class GoalScreen extends React.Component {
     }
     if (twoptfbox === true) {
       this.setState({ twoptfbox: !this.state.twoptfbox })
-    }
-    if (fhbox === true) {
-      this.setState({ fhbox: !this.state.fhbox })
-    }
-    if (threeptfbox === true) {
-      this.setState({ threeptfbox: !this.state.threeptfbox })
-    }
-    if (fourkbox === true) {
-      this.setState({ fourkbox: !this.state.fourkbox })
-    }
-  }
-
-  checkThreeptfBox() {
-    fhbox = this.state.fhbox
-    onekbox = this.state.onekbox;
-    oneptfkbox = this.state.oneptfkbox;
-    twokbox = this.state.twokbox;
-    twoptfbox = this.state.twoptfbox;
-    threekbox = this.state.threekbox;
-    threeptfbox = this.state.threeptfbox;
-    fourkbox = this.state.fourkbox;
-    this.setState({ threeptfbox: !this.state.threeptfbox })
-    if (onekbox === true) {
-      this.setState({ onekbox: !this.state.onekbox })
-    }
-    if (oneptfkbox === true) {
-      this.setState({ oneptfkbox: !this.state.oneptfkbox })
-    }
-    if (twokbox === true) {
-      this.setState({ twokbox: !this.state.twokbox })
-    }
-    if (twoptfbox === true) {
-      this.setState({ twoptfbox: !this.state.twoptfbox })
-    }
-    if (threekbox === true) {
-      this.setState({ threekbox: !this.state.threekbox })
-    }
-    if (fhbox === true) {
-      this.setState({ fhbox: !this.state.fhbox })
-    }
-    if (fourkbox === true) {
-      this.setState({ fourkbox: !this.state.fourkbox })
-    }
-  }
-
-  checkFourkBox() {
-    fhbox = this.state.fhbox
-    onekbox = this.state.onekbox;
-    oneptfkbox = this.state.oneptfkbox;
-    twokbox = this.state.twokbox;
-    twoptfbox = this.state.twoptfbox;
-    threekbox = this.state.threekbox;
-    threeptfbox = this.state.threeptfbox;
-    fourkbox = this.state.fourkbox;
-    this.setState({ fourkbox: !this.state.fourkbox })
-    if (onekbox === true) {
-      this.setState({ onekbox: !this.state.onekbox })
-    }
-    if (oneptfkbox === true) {
-      this.setState({ oneptfkbox: !this.state.oneptfkbox })
-    }
-    if (twokbox === true) {
-      this.setState({ twokbox: !this.state.twokbox })
-    }
-    if (twoptfbox === true) {
-      this.setState({ twoptfbox: !this.state.twoptfbox })
-    }
-    if (threekbox === true) {
-      this.setState({ threekbox: !this.state.threekbox })
-    }
-    if (threeptfbox === true) {
-      this.setState({ threeptfbox: !this.state.threeptfbox })
     }
     if (fhbox === true) {
       this.setState({ fhbox: !this.state.fhbox })
@@ -365,6 +251,57 @@ export default class GoalScreen extends React.Component {
     }
   };
 
+  displayBurnMessage (loseChecked, maintainChecked, gainChecked) {
+    if(loseChecked){
+      return <Text style={styles.signupText}>You want to lose weight, we recommend 
+      you aim to burn an extra 1500 kCal per week to increase your fitness. Maintain or slightly 
+      decrease your current calorie intake in order to lose weight. Ensure a healthy diet.</Text>;
+    }
+    if(maintainChecked){
+      return <Text style={styles.signupText}>To maintain your weight, we recommend 
+      you aim to burn 1200 kCal per week to increase your fitness. Increase your calorie intake 
+      to match your new exercise regime in order to maintain your weight. Ensure a healthy diet.</Text>;
+    }
+    if(gainChecked){
+      return <Text style={styles.signupText}>To gain weight, we recommend 
+      you aim to burn an extra 600 kCal per week. Increase your calorie intake by between 
+      300-500kCal more than you burn each time you exercise to gain weight. 
+      </Text>;
+    }
+
+  }
+
+  setCheckBoxL(loseChecked){
+    twoptfbox = this.state.twoptfbox;
+    if(loseChecked){
+      this.setState({twoptfbox: true});
+    }
+  }
+
+  setCheckBoxM(twokbox){
+    twokbox = this.state.twokbox;
+    if(twokbox){
+      this.setState({twokbox: true});
+    }
+  }
+
+  setCheckBoxG(gainChecked){
+    onekbox = this.state.onekbox;
+    if(gainChecked){
+      this.setState({onekbox: true});
+    }
+  }
+
+  componentWillMount() {
+    const { navigation } = this.props;
+    const loseChecked = navigation.getParam('loseChecked', 'NO-ID');
+    const gainChecked = navigation.getParam('gainChecked', 'NO-ID');
+    const maintainChecked = navigation.getParam('maintainChecked', 'NO-ID');
+    this.setCheckBoxL(loseChecked)
+    this.setCheckBoxM(maintainChecked)
+    this.setCheckBoxG(gainChecked)
+  }
+
 
   render() {
 
@@ -375,6 +312,9 @@ export default class GoalScreen extends React.Component {
     const age = navigation.getParam('age', 'NO-ID');
     const weight = navigation.getParam('weight', 'NO-ID');
     const height = navigation.getParam('height', 'NO-ID');
+    const loseChecked = navigation.getParam('loseChecked', 'NO-ID');
+    const gainChecked = navigation.getParam('gainChecked', 'NO-ID');
+    const maintainChecked = navigation.getParam('maintainChecked', 'NO-ID');
 
     // BMI = kg/m2
     //weight is in KG, height is in CM so divide height by 100
@@ -393,71 +333,56 @@ export default class GoalScreen extends React.Component {
             <Text style={styles.signupText}>You are in the BMI range: {this.displayBMIMessage(BMI)}</Text>
             <Text style={styles.signupText}>Based on your current weight, height & age and lifestyle, Runtracker
             has calculated your daily calorie needs to be {this.displayTEEMessage(age, weight, height)} kCal. </Text>
-            
-            
+            <Text style={styles.signupText}>{this.displayBurnMessage(loseChecked, maintainChecked, gainChecked)}</Text>
             <Text style={styles.signupText}>If you have any underlying
             health problems, please first consult with your doctor before beginning any
             period of exercise.</Text>
           </View>
-          <Text style={styles.signupText3}>Calories you want to burn weekly</Text>
+          <Text style={styles.signupText3}>Calories to burn weekly</Text>
 
           <CheckBox
-            title='500'
+            title='300'
             containerStyle={styles.checkBox}
             checked={this.state.fhbox}
             textStyle={styles.signupText}
             onPress={() => this.checkFhBox()}
           />
           <CheckBox
-            title='1000'
+            title='600'
             containerStyle={styles.checkBox}
             checked={this.state.onekbox}
             textStyle={styles.signupText}
             onPress={() => this.checkOnekBox()}
           />
           <CheckBox
-            title='1500'
+            title='900'
             containerStyle={styles.checkBox}
             checked={this.state.oneptfkbox}
             textStyle={styles.signupText}
             onPress={() => this.checkOneptfBox()}
           />
           <CheckBox
-            title='2000'
+            title='1200'
             containerStyle={styles.checkBox}
             checked={this.state.twokbox}
             textStyle={styles.signupText}
             onPress={() => this.checkTwokBox()}
           />
           <CheckBox
-            title='2500'
+            title='1500'
             containerStyle={styles.checkBox}
             checked={this.state.twoptfbox}
             textStyle={styles.signupText}
             onPress={() => this.checkTwoptfBox()}
           />
           <CheckBox
-            title='3000'
+            title='2000'
             containerStyle={styles.checkBox}
             checked={this.state.threekbox}
             textStyle={styles.signupText}
             onPress={() => this.checkThreekBox()}
           />
-          <CheckBox
-            title='3500'
-            containerStyle={styles.checkBox}
-            checked={this.state.threeptfbox}
-            textStyle={styles.signupText}
-            onPress={() => this.checkThreeptfBox()}
-          />
-          <CheckBox
-            title='4000'
-            containerStyle={styles.checkBox}
-            checked={this.state.fourkbox}
-            textStyle={styles.signupText}
-            onPress={() => this.checkFourkBox()}
-          />
-
+        
           <View style={styles.container2}>
             <TouchableOpacity
               style={styles.button}
