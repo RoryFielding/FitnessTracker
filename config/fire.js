@@ -1,13 +1,13 @@
 import firebase from 'firebase';
 
 const config = {
-    apiKey: 'AIzaSyDpHZZ7yUOyt84vExyCYMw-tdMYq0dPuS8',
-    authDomain: 'run-tracker-12b3d.firebaseapp.com',
-    databaseURL: 'https://run-tracker-12b3d.firebaseio.com',
-    projectId: 'run-tracker-12b3d', 
-    storageBucket: 'run-tracker-12b3d.appspot.com',
-    messageSenderId: '29917136870'
-}
+    apiKey: "AIzaSyBt3R40KsW2AijL4QoSFSFRPISO1VCEkQk",
+    authDomain: "runtracker-345ae.firebaseapp.com",
+    databaseURL: "https://runtracker-345ae.firebaseio.com",
+    projectId: "runtracker-345ae",
+    storageBucket: "runtracker-345ae.appspot.com",
+    messagingSenderId: "969622388685"
+  };
 
 const fire = firebase.initializeApp(config);
 export default fire;

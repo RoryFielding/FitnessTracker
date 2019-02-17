@@ -1,10 +1,20 @@
 import React from 'react';
 import {Text, Image, View, StyleSheet} from 'react-native';
+import firebase from 'firebase';
 
 export default class SettingsScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
+
+componentWillMount() {
+
+  var userId = firebase.auth().currentUser.uid;
+
+  firebase.database().ref('activity/' + userId).on('value', (data) => {
+    console.log(data.toJSON())
+  })
+}
 
   render() {
     return (

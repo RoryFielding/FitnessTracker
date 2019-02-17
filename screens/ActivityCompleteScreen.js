@@ -1,6 +1,7 @@
 import React from 'react';
 import { ScrollView, View, Image, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import TimeFormatter from 'minutes-seconds-milliseconds';
+import firebase from 'firebase';
 
 export default class AchievementsScreen extends React.Component {
   static navigationOptions = {
@@ -32,6 +33,33 @@ export default class AchievementsScreen extends React.Component {
       date:
         date + '/' + month + '/' + year + ' ' + hours + ':' + min + ':' + sec,
     });
+  }
+
+  saveActivity () {
+
+    const { navigation } = this.props;
+    const distanceTravelled = navigation.getParam('distanceTravelled', 'NO-ID');
+    const speed = navigation.getParam('speed', 'NO-ID');
+    const kCal = navigation.getParam('kCal', 'NO-ID');
+    const mainTimer = navigation.getParam('mainTimer', 'NO-ID');
+    var userId = firebase.auth().currentUser.uid;
+
+    firebase.database().ref('activity/' + userId).push(
+      {
+        Date: this.state.date,
+        Distance: distanceTravelled,
+        Time: mainTimer,
+        Speed: speed,
+        kCalBurned: kCal,
+        Notes: this.state.notes
+      }
+    ).then(() => {
+      console.log('Inserted to db');
+      this.props.navigation.navigate('Analytics');
+    }).catch((error) => {
+      console.log(error);
+    });
+
   }
 
   render() {
@@ -93,7 +121,7 @@ export default class AchievementsScreen extends React.Component {
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
-              this.props.navigation.navigate('Analytics');
+              this.saveActivity();
             }}>
             <Text style={styles.buttonText}>SAVE ACTIVITY{this.props.type}</Text>
           </TouchableOpacity>
