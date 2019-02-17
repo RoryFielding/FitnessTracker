@@ -111,6 +111,8 @@ export default class PsychicalIntensityScreen extends Component {
         const age = navigation.getParam('age', 'NO-ID');
         const mchecked = navigation.getParam('mchecked', 'NO-ID');
         const fchecked = navigation.getParam('fchecked', 'NO-ID');
+        const firstName = navigation.getParam('firstName' ,'NO-ID');
+        const lastName = navigation.getParam('lastName' ,'NO-ID');
         const weight = navigation.getParam('weight', 'NO-ID');
         const height = navigation.getParam('height', 'NO-ID');
         const maintainChecked = navigation.getParam('maintainChecked', 'NO-ID');
@@ -163,6 +165,8 @@ export default class PsychicalIntensityScreen extends Component {
                                 age: age,
                                 mchecked: mchecked,
                                 fchecked: fchecked,
+                                firstName: firstName,
+                                lastName: lastName,
                                 weight: weight,
                                 height: height,
                                 maintainChecked: maintainChecked,

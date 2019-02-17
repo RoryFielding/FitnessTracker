@@ -26,7 +26,8 @@ export default class HeightScreen extends React.Component {
     const mchecked = navigation.getParam('mchecked' ,'NO-ID');
     const fchecked = navigation.getParam('fchecked' ,'NO-ID');
     const weight = navigation.getParam('weight', 'NO-ID');
-
+    const firstName = navigation.getParam('firstName' ,'NO-ID');
+    const lastName = navigation.getParam('lastName' ,'NO-ID');
     
     return (
       <View style={styles.container}>
@@ -57,6 +58,8 @@ export default class HeightScreen extends React.Component {
                 age: age,
                 mchecked: mchecked,
                 fchecked: fchecked,
+                firstName: firstName,
+                lastName: lastName,
                 weight: weight,
                 height: this.state.height
               })

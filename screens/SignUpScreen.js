@@ -203,7 +203,9 @@ export default class SignUpScreen extends Component {
                         password: this.state.password,
                         age: this.state.age,
                         mchecked: this.state.mchecked,
-                        fchecked: this.state.fchecked
+                        fchecked: this.state.fchecked,
+                        firstName: this.state.firstName,
+                        lastName: this.state.lastName
                     });
                     }}>
                     <Text style={styles.buttonText}>CREATE ACCOUNT{this.props.type}</Text>

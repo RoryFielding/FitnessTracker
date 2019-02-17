@@ -302,6 +302,58 @@ export default class GoalScreen extends React.Component {
     this.setCheckBoxG(gainChecked)
   }
 
+  writeUserData(authData) {
+
+    const { navigation } = this.props;
+    const username = navigation.getParam('username', 'NO-ID');
+    const age = navigation.getParam('age', 'NO-ID');
+    const weight = navigation.getParam('weight', 'NO-ID');
+    const height = navigation.getParam('height', 'NO-ID');
+    const mchecked = navigation.getParam('mchecked', 'NO-ID');
+    const firstName = navigation.getParam('firstName' ,'NO-ID');
+    const lastName = navigation.getParam('lastName' ,'NO-ID');
+    const loseChecked = navigation.getParam('loseChecked', 'NO-ID');
+    const gainChecked = navigation.getParam('gainChecked', 'NO-ID');
+    const maintainChecked = navigation.getParam('maintainChecked', 'NO-ID');
+
+    var today = new Date();
+
+    const bmiHeight = height / 100;
+    const bmiHeightSq = bmiHeight * bmiHeight;
+    const BMI = weight / bmiHeightSq;
+
+
+    fire.database().ref('users/' + authData + '/').set({
+        firstName: firstName,
+        lastName: lastName,
+        age: age,
+        email: username,
+        registered: today,
+        height: height,
+        weight: weight,
+        male: mchecked,
+        loseChecked: loseChecked,
+        gainChecked: gainChecked,
+        maintainChecked: maintainChecked,
+        BMI: BMI
+    }).then(() => {
+      console.log('Inserted to db');
+    }).catch((error) => {
+      console.log(error);
+    });
+}
+
+createAccount(username, password) {
+  fire.auth().createUserWithEmailAndPassword(username, password).then((u) => {
+  }).catch((error) => {
+    alert(error);
+  }).then(() => {
+    var userId = fire.auth().currentUser.uid;
+    this.writeUserData(userId);
+}).catch(function(error){
+    console.warn(error)
+});
+}
 
   render() {
 
@@ -402,18 +454,6 @@ export default class GoalScreen extends React.Component {
 
     );
   }
-
-  createAccount(username, password) {
-    fire.auth().createUserWithEmailAndPassword(username, password).then((u) => {
-    }).catch((error) => {
-      alert(error);
-    });
-  }
-
-  setAuthVars() {
-
-  }
-
 
 }
 

@@ -25,6 +25,8 @@ setWeight(weight) {
     const age = navigation.getParam('age', 'NO-ID');
     const mchecked = navigation.getParam('mchecked' ,'NO-ID');
     const fchecked = navigation.getParam('fchecked' ,'NO-ID');
+    const firstName = navigation.getParam('firstName' ,'NO-ID');
+    const lastName = navigation.getParam('lastName' ,'NO-ID');
     
     return (
 
@@ -56,6 +58,8 @@ setWeight(weight) {
                 age: age,
                 mchecked: mchecked,
                 fchecked: fchecked,
+                firstName: firstName,
+                lastName: lastName,
                 weight: this.state.weight
               })
             }}>
