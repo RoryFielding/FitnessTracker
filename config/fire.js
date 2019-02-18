@@ -10,4 +10,12 @@ const config = {
   };
 
 const fire = firebase.initializeApp(config);
+fire.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+  } else {
+    // No user is signed in.
+  }
+});
+
 export default fire;

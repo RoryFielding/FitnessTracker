@@ -4,6 +4,13 @@ import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 import fire from './config/fire';
 import MainTabNavigator from './navigation/MainTabNavigator';
+import { createStore } from 'redux'
+import rootReducer from './store/reducers/rootReducer';
+import { Provider } from 'react-redux';
+
+const store = createStore(rootReducer);
+
+
 
 export default class App extends React.Component {
 
@@ -26,11 +33,9 @@ export default class App extends React.Component {
       // console.log(user);
       if (user) {
         this.setState({ user });
-        // localStorage.setItem('user', user.uid);
 
       } else {
         this.setState({ user: null });
-        //  localStorage.removeItem(user);
       }
     })
   }
@@ -42,15 +47,15 @@ export default class App extends React.Component {
           startAsync={this._loadResourcesAsync}
           onError={this._handleLoadingError}
           onFinish={this._handleFinishLoading}
-          // autoHideSplash={false}
         />
       );
-    } else {
+    } 
+    else {
+     // console.log(this.state.user);
       return (
-
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          {this.state.user ? (<MainTabNavigator />) : (<AppNavigator />)}
+          {this.state.user ? (<Provider store={store}> <MainTabNavigator /> </Provider>) : (<AppNavigator />)}
         </View>
       );
     }

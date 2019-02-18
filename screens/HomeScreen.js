@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Button, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import firebase from 'firebase';
 import { ImagePicker } from 'expo';
 import { Camera, Permissions } from 'expo';
+import { connect } from 'react-redux'
 
 
-export default class HomeScreen extends React.Component {
+class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
@@ -23,7 +24,13 @@ export default class HomeScreen extends React.Component {
       hasCameraPermission: null,
       type: Camera.Constants.Type.back,
       image: null,
+      currentUser: null,
     }
+
+  }
+
+  componentDidMount() {
+     
   }
 
   logOut() {
@@ -42,16 +49,16 @@ export default class HomeScreen extends React.Component {
       aspect: [4, 3],
     });
 
-    console.log(result);
-
     if (!result.cancelled) {
       this.setState({ image: result.uri });
     }
   };
-  
+
+
   render() {
 
     let { image } = this.state;
+    console.log(this.props);
 
     return (
       <View style={styles.container}>
@@ -65,9 +72,9 @@ export default class HomeScreen extends React.Component {
           {image &&
             <Image source={{ uri: image }} style={styles.imagePicked} />}
           <TouchableOpacity
-                    style={styles.button}
-                    onPress={this._pickImage}>
-                    <Text style={styles.buttonText}>+{this.props.type}</Text>
+            style={styles.button}
+            onPress={this._pickImage}>
+            <Text style={styles.buttonText}>+{this.props.type}</Text>
           </TouchableOpacity>
 
 
@@ -78,6 +85,9 @@ export default class HomeScreen extends React.Component {
             <Text style={styles.signupText}>
               Last Name:  {this.state.lName}
             </Text>
+            <Text>
+              Hi !
+        </Text>
           </View>
         </View>
 
@@ -158,3 +168,11 @@ const styles = StyleSheet.create({
     top: -15
   }
 });
+
+const mapStateToProps = (state) => {
+  return {
+    projects: state.project.projects
+  }
+}
+
+export default connect(mapStateToProps)(HomeScreen)

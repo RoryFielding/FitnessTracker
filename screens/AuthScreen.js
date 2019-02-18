@@ -54,7 +54,6 @@ export default class AuthScreen extends React.Component {
                     ref={(input) => this.password = input}
                 />
                 <TouchableOpacity style={styles.button} 
-                //onPress={() => this.props.navigation.navigate('Main')}>
                 onPress={() => {this.login()}}>
                     <Text style={styles.buttonText}>LOG IN{this.props.type}</Text>
                 </TouchableOpacity>
