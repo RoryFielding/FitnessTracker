@@ -25,12 +25,10 @@ class HomeScreen extends React.Component {
       type: Camera.Constants.Type.back,
       image: null,
       currentUser: null,
+      profileSet: false,
+      userId: ''
     }
 
-  }
-
-  componentDidMount() {
-     
   }
 
   logOut() {
@@ -54,12 +52,25 @@ class HomeScreen extends React.Component {
     }
   };
 
+  _setProfile = async () => {
+    if(!this.state.profileSet){
+      const auth = await firebase.auth().currentUser.uid;
+      this.setState({profileSet: true});
+      this.setState({userId: auth});
+    }
+    
+  }
+
+  componentDidMount() {
+    this._setProfile();
+  }
+
 
   render() {
 
     let { image } = this.state;
-    console.log(this.props);
 
+    console.log(this.state.userId);
     return (
       <View style={styles.container}>
         <Image style={{ width: 260, height: 160 }}
@@ -171,7 +182,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   return {
-    projects: state.project.projects
+
   }
 }
 

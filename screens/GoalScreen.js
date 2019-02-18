@@ -2,8 +2,9 @@ import React from 'react';
 import { ScrollView, View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import fire from '../config/fire';
 import { CheckBox } from 'react-native-elements';
+import { connect } from 'react-redux';
 
-export default class GoalScreen extends React.Component {
+class GoalScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
@@ -350,6 +351,7 @@ createAccount(username, password) {
   }).then(() => {
     var userId = fire.auth().currentUser.uid;
     this.writeUserData(userId);
+    this.setState({uid: userId});
 }).catch(function(error){
     console.warn(error)
 });
@@ -456,6 +458,14 @@ createAccount(username, password) {
   }
 
 }
+
+const mapStateToProps = state => ({
+  auth: this.state.uid
+});
+
+export default connect(
+  mapStateToProps,
+)(GoalScreen);
 
 const styles = StyleSheet.create({
   container: {
